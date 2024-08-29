@@ -3,7 +3,12 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "commonjs",
-    "noEmit": false
+    "noEmit": false,
+    // "rootDir": "./src",
+    "noUnusedParameters": false,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": ["src/*.ts"],
   "exclude": ["src/app"]

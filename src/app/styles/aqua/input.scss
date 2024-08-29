@@ -1,0 +1,149 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.form-control {
+  --input-padding: #{unit(2)} #{unit(3)};
+  --input-color: black;
+  --input-bg: white;
+  --input-border-color: rgba(0, 0, 0, 0.3);
+  --input-radius: 4px;
+  --input-placeholder-color: var(--secondary-color-darker);
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--input-padding);
+  margin: 0;
+  color: var(--input-color);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border-color);
+  border-radius: var(--input-radius);
+  transition: 0.3s;
+  appearance: none;
+  outline: none;
+
+  &::placeholder {
+    color: var(--input-placeholder-color);
+  }
+}
+
+select.form-control:not([multiple]) {
+  --select-active-color: var(--input-color);
+  --select-inactive-color: var(--input-placeholder-color);
+
+  color: var(--select-active-color);
+
+  &:required {
+    & > option {
+      &:first-of-type {
+        color: var(--select-inactive-color);
+      }
+    }
+
+    &:invalid {
+      color: var(--select-inactive-color);
+
+      & > option {
+        &:not(:first-of-type) {
+          color: var(--select-active-color);
+        }
+      }
+
+      & > optgroup {
+        color: var(--select-active-color);
+      }
+    }
+  }
+}
+
+.form-input-material {
+  --input-default-border-color: rgba(0, 0, 0, 0.5);
+  --input-invalid-border-color: var(--danger-color);
+  --input-valid-border-color: var(--primary-color);
+  --input-border-bottom-color: rgba(0, 0, 0, 0.3);
+
+  position: relative;
+  border-bottom: 1px solid var(--input-border-bottom-color);
+  display: grid;
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: unit(0.5);
+    background: var(--input-valid-border-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: 0.3s;
+  }
+
+  &:focus-within::before {
+    transform: scaleX(1);
+  }
+
+  label {
+    position: absolute;
+    top: unit(2);
+    left: 0;
+    transition: 0.3s;
+    transform-origin: left;
+  }
+
+  .form-control-material {
+    padding: unit(2) 0;
+    background: transparent;
+    border: none;
+    appearance: none;
+    outline: none;
+
+    &:placeholder-shown #{$sibling-selector} label {
+      color: var(--input-default-border-color);
+    }
+
+    &:invalid,
+    &.invalid {
+      & #{$sibling-selector} label {
+        color: var(--input-invalid-border-color);
+      }
+    }
+    // &.invalid{
+    //   & #{$sibling-selector} label {
+    //     color: var(--input-invalid-border-color) !important;
+    //   }
+    // }
+
+    // &:valid #{$sibling-selector} label {
+    //    color: var(--input-valid-border-color);
+    // }
+
+    // label will float in 2 situations based on its sibling input:
+    // 1. input get focus
+    // 2. input has text filled
+    &:focus #{$sibling-selector} label,
+    &:not(:placeholder-shown) #{$sibling-selector} label {
+      transform: translateY(-120%) scale(0.75);
+    }
+  }
+}
+
+.input-group {
+  display: flex;
+
+  .form-control,
+  .btn {
+    &:first-child {
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+  }
+}

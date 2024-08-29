@@ -1,0 +1,61 @@
+.accordion {
+  --accordion-color: var(--secondary-color-darker);
+  --accordion-active-color: var(--primary-color);
+  --accordion-line-color: var(--secondary-color);
+
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  color: var(--accordion-color);
+
+  &-item {
+    a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: unit(4.5);
+      font-size: unit(5.25);
+      color: currentColor;
+      text-decoration: none;
+      border-bottom: 1px solid var(--accordion-line-color);
+      cursor: pointer;
+
+      .accordion-toggle {
+        border-width: 1px;
+        transition: 0.3s;
+        transform: scale(1.5);
+
+        &::before {
+          left: unit(1.75) !important;
+          top: unit(1.5) !important;
+        }
+      }
+
+      &:hover,
+      &.active {
+        color: var(--accordion-active-color);
+        border-bottom: 1px solid currentColor;
+      }
+    }
+
+    &.active {
+      a .accordion-toggle {
+        transform: scale(1.5) rotate(0.5turn);
+      }
+
+      .accordion-content {
+        padding: unit(4.5);
+        max-height: unit(45);
+        opacity: 1;
+      }
+    }
+  }
+
+  &-content {
+    padding: 0 unit(4.5);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.3s 0.15s;
+  }
+}

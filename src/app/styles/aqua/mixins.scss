@@ -1,0 +1,152 @@
+@mixin btn-color-with-state($type) {
+  &-#{$type} {
+    --btn-color: white;
+    --btn-bg: var(--#{$type}-color);
+    --btn-border: 1px solid var(--btn-bg);
+
+    &.disabled {
+      --btn-bg: var(--#{$type}-color-lighter);
+    }
+  }
+}
+
+@mixin gauge-color-with-state($type) {
+  &-#{$type} {
+    --gauge-circle-color: var(--#{$type}-color);
+    --gauge-circle-color-lighter: var(--#{$type}-color-lighter);
+  }
+}
+
+@mixin alert-color-with-state($type) {
+  &-#{$type} {
+    color: var(--#{$type}-color-darker);
+    --alert-color: var(--#{$type}-color-lighter);
+  }
+}
+
+@mixin tag-color-with-state($type) {
+  &-#{$type} {
+    color: var(--#{$type}-color-darker);
+    --tag-color: var(--#{$type}-color-lighter);
+  }
+}
+
+@mixin avatar-color-with-state($type) {
+  &-#{$type} {
+    color: white;
+    --avatar-bg: var(--#{$type}-color);
+  }
+}
+
+@mixin text-color-with-state($type) {
+  .text-#{$type} {
+    color: var(--#{$type}-color);
+  }
+
+  .text-#{$type}-darker {
+    color: var(--#{$type}-color-darker);
+  }
+
+  .text-#{$type}-lighter {
+    color: var(--#{$type}-color-lighter);
+  }
+}
+
+@mixin bg-color-with-state($type) {
+  .bg-#{$type} {
+    background: var(--#{$type}-color);
+  }
+
+  .bg-#{$type}-darker {
+    background: var(--#{$type}-color-darker);
+  }
+
+  .bg-#{$type}-lighter {
+    background: var(--#{$type}-color-lighter);
+  }
+}
+
+@mixin border-color-with-state($type) {
+  .border-#{$type} {
+    border-color: var(--#{$type}-color);
+  }
+
+  .border-#{$type}-darker {
+    border-color: var(--#{$type}-color-darker);
+  }
+
+  .border-#{$type}-lighter {
+    border-color: var(--#{$type}-color-lighter);
+  }
+}
+
+@mixin ring-color-with-state($type) {
+  .ring-#{$type} {
+    --ring-color: var(--#{$type}-color);
+  }
+
+  .ring-#{$type}-darker {
+    --ring-color: var(--#{$type}-color-darker);
+  }
+
+  .ring-#{$type}-lighter {
+    --ring-color: var(--#{$type}-color-lighter);
+  }
+}
+
+@mixin cover(
+  $top: 0,
+  $left: 0,
+  $width: 100%,
+  $height: 100%,
+  $position: absolute
+) {
+  position: $position;
+  top: $top;
+  left: $left;
+  width: $width;
+  height: $height;
+}
+
+@mixin inset($inset: 0) {
+  top: $inset;
+  left: $inset;
+  right: $inset;
+  bottom: $inset;
+}
+
+@mixin square($width) {
+  width: $width;
+  height: $width;
+}
+
+@mixin circle($radius) {
+  width: $radius;
+  height: $radius;
+  border-radius: 50%;
+}
+
+@mixin flex-center($display: flex) {
+  display: $display;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin h-center($position: absolute) {
+  position: $position;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin v-center($position: absolute) {
+  position: $position;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin hv-center($position: absolute) {
+  position: $position;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

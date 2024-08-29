@@ -1,0 +1,32 @@
+.back-top {
+  --backtop-visibility-height: #{unit(50)};
+  --backtop-right: #{unit(10)};
+  --backtop-bottom: #{unit(20)};
+  --backtop-active-color: var(--primary-color);
+  --backtop-icon-color: var(--secondary-color-darker);
+
+  position: absolute;
+  top: var(--backtop-visibility-height);
+  right: var(--backtop-right);
+  bottom: calc(-1 * var(--backtop-bottom));
+
+  &-link {
+    position: sticky;
+    top: calc(100vh - var(--backtop-bottom));
+    color: var(--backtop-icon-color);
+    border: none !important;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+    transform: scale(2);
+    transition: 0.3s;
+
+    &::before {
+      left: unit(2) !important;
+      top: unit(2.25) !important;
+    }
+
+    &:hover {
+      color: var(--backtop-active-color);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+  }
+}

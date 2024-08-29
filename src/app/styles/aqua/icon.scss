@@ -1,0 +1,245 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.close-icon {
+  --close-icon-width: #{unit(4)};
+  --close-icon-bar-width: calc(var(--close-icon-width) / 12);
+  --close-icon-color: rgba(0, 0, 0, 0.5);
+  --close-icon-cross-color: white;
+
+  @include circle(var(--close-icon-width));
+  position: relative;
+  display: block;
+  background: var(--close-icon-color);
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    background: var(--close-icon-cross-color);
+    border-radius: 15px;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::before {
+    width: 50%;
+    height: var(--close-icon-bar-width);
+  }
+
+  &::after {
+    width: var(--close-icon-bar-width);
+    height: 50%;
+  }
+}
+
+.chevron-icon {
+  @include square(unit(5.5));
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: var(--chevron-color);
+
+  &::before {
+    @include square(unit(2.5));
+    position: absolute;
+    content: '';
+    box-sizing: border-box;
+    border-color: currentColor;
+    transform: rotate(var(--chevron-rotate-deg));
+  }
+
+  &.up {
+    --chevron-rotate-deg: -45deg;
+
+    &::before {
+      left: unit(1);
+      bottom: unit(0.5);
+      border-top: unit(0.5) solid;
+      border-right: unit(0.5) solid;
+    }
+  }
+
+  &.right {
+    --chevron-rotate-deg: -45deg;
+
+    &::before {
+      top: unit(1);
+      right: unit(1.5);
+      border-bottom: unit(0.5) solid;
+      border-right: unit(0.5) solid;
+    }
+  }
+
+  &.down {
+    --chevron-rotate-deg: 45deg;
+
+    &::before {
+      left: unit(1);
+      top: unit(0.5);
+      border-bottom: unit(0.5) solid;
+      border-right: unit(0.5) solid;
+    }
+  }
+
+  &.left {
+    --chevron-rotate-deg: 135deg;
+
+    &::before {
+      left: unit(1.5);
+      top: unit(1);
+      border-bottom: unit(0.5) solid;
+      border-right: unit(0.5) solid;
+    }
+  }
+
+  &.circle {
+    border: unit(0.5) solid currentColor;
+    border-radius: 50%;
+
+    &::before {
+      width: unit(1.5);
+      height: unit(1.5);
+    }
+
+    &.down::before {
+      left: unit(1.5);
+      top: unit(1.25);
+    }
+
+    &.right::before {
+      left: unit(1.25);
+      top: unit(1.5);
+    }
+
+    &.up::before {
+      left: unit(1.5);
+      bottom: unit(1.25);
+    }
+
+    &.left::before {
+      left: unit(1.75);
+      top: unit(1.5);
+    }
+  }
+}
+
+.search-icon {
+  @include square(unit(4));
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  margin: unit(-1) 0 0 unit(-1);
+  color: var(--search-color);
+  border: unit(0.5) solid currentColor;
+  border-radius: 50%;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: unit(2.5);
+    left: unit(3);
+    box-sizing: border-box;
+    width: unit(0.5);
+    height: unit(2);
+    background: currentColor;
+    border-radius: 3px;
+    transform: rotate(-45deg);
+  }
+}
+
+.plus-icon {
+  @include square(unit(4));
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  color: var(--plus-color);
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+    display: inline-flex;
+    box-sizing: border-box;
+    background: currentColor;
+    border-radius: 10px;
+  }
+
+  &::before {
+    top: unit(1.75);
+    width: unit(4);
+    height: unit(0.5);
+  }
+
+  &::after {
+    left: unit(1.75);
+    width: unit(0.5);
+    height: unit(4);
+  }
+
+  &.circle {
+    width: unit(5.5);
+    height: unit(5.5);
+    border: unit(0.5) solid currentColor;
+    border-radius: 50%;
+
+    &::before,
+    &::after {
+      border-radius: 5px;
+    }
+
+    &::before {
+      top: unit(2);
+      left: unit(1);
+      width: unit(2.5);
+      height: unit(0.5);
+    }
+
+    &::after {
+      top: unit(1);
+      left: unit(2);
+      width: unit(0.5);
+      height: unit(2.5);
+    }
+  }
+}
+
+.minus-icon {
+  @include square(unit(4));
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  color: var(--minus-color);
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: unit(1.75);
+    display: inline-flex;
+    box-sizing: border-box;
+    width: unit(4);
+    height: unit(0.5);
+    background: currentColor;
+    border-radius: 10px;
+  }
+
+  &.circle {
+    width: unit(5.5);
+    height: unit(5.5);
+    border: unit(0.5) solid currentColor;
+    border-radius: 50%;
+
+    &::before {
+      top: unit(2);
+      left: unit(1);
+      width: unit(2.5);
+      height: unit(0.5);
+      border-radius: 5px;
+    }
+  }
+}

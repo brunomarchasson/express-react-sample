@@ -1,28 +1,21 @@
-import express from 'express';
-import router from './lib/router';
-import path from 'path';
+import 'reflect-metadata';
+import { createServer } from 'http';
+import app from './restApi';
+import env from './env';
+import { AppDataSource } from './data-source';
 
-const { PORT = 3001 } = process.env;
+// import { createWebSocketServer } from "path/to/websocket";
 
-const app = express();
+const { PORT } = env;
 
-// Middleware that parses json and looks at requests where the Content-Type header matches the type option.
-app.use(express.json());
+const server = createServer();
 
-// Serve API requests from the router
-app.use('/api', router);
+server.on('request', app);
+// createWebSocketServer(server);
 
-// Serve storybook production bundle
-app.use('/storybook', express.static('dist/storybook'));
-
-// Serve app production bundle
-app.use(express.static('dist/app'));
-
-// Handle client routing, return all requests to the app
-app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'app/index.html'));
-});
-
-app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
+// hard-coded port for simplicity until more flexibility needed
+AppDataSource.initialize().then(async () => {
+  server.listen(PORT, () => {
+    console.log(`API started at ${env.APP_URL}`);
+  });
 });

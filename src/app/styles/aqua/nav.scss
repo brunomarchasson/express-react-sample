@@ -1,0 +1,48 @@
+.nav {
+  --nav-underline-color: var(--secondary-color);
+  --nav-color: black;
+  --nav-active-color: var(--primary-color);
+  --nav-inactive-color: rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  border-bottom: 1px solid var(--nav-underline-color);
+
+  &:hover {
+    .nav-item:not(:hover) a {
+      color: var(--nav-inactive-color);
+    }
+  }
+
+  .nav-item {
+    a {
+      position: relative;
+      display: flex;
+      padding: unit(6);
+      color: var(--nav-color);
+      text-decoration: none;
+      transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      &::after {
+        position: absolute;
+        content: '';
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: unit(0.5);
+        background: var(--nav-active-color);
+        transform: scaleX(0);
+        transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); // ease-out-quartic
+      }
+
+      &:hover,
+      &.router-link-active {
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+}

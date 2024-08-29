@@ -1,0 +1,105 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.step {
+  --step-circle-color: var(--step-default-color);
+  --step-circle-bg: transparent;
+  --step-line-color: var(--secondary-color);
+  --step-default-color: var(--secondary-color-darker);
+  --step-active-color: var(--primary-color);
+
+  display: flex;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style-type: none;
+  counter-reset: step;
+
+  &-item {
+    position: relative;
+    flex: 1;
+    color: var(--step-default-color);
+    counter-increment: step;
+
+    &__content {
+      position: absolute;
+      left: unit(-6);
+      width: unit(25);
+      text-align: center;
+    }
+
+    &__title {
+      margin-top: unit(2);
+      font-size: unit(3.5);
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    &__desc {
+      margin-top: unit(1);
+      font-size: unit(3);
+      transition: 0.3s;
+    }
+
+    &:last-child {
+      max-width: unit(12.5);
+
+      .step-item__node::after {
+        content: none;
+      }
+    }
+
+    &__node {
+      display: flex;
+      align-items: center;
+
+      &::before {
+        @include flex-center;
+        @include circle(unit(8));
+        content: counter(step);
+        margin: 0 unit(2);
+        font-size: unit(3);
+        background: var(--step-circle-bg);
+        border: 1px solid var(--step-circle-color);
+        transition: 0.3s;
+      }
+
+      &::after {
+        content: '';
+        width: calc(100% - 48px);
+        height: 1px;
+        background: var(--step-line-color);
+        transition: 0.3s;
+      }
+    }
+
+    &.done {
+      .step-item__node {
+        &::before {
+          --step-circle-color: var(--step-active-color);
+
+          content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18px' height='18px' fill='none' stroke-width='2px' stroke='%234ec0e9' stroke-linecap='round' viewBox='0 0 21 21'%3E%3Cpolyline points='5 10.75 8.5 14.25 16 6'%3E%3C/polyline%3E%3C/svg%3E");
+          line-height: 1;
+          color: var(--step-active-color);
+        }
+
+        &::after {
+          --step-line-color: var(--step-active-color);
+        }
+      }
+    }
+
+    &.active {
+      color: var(--secondary-color-darkest);
+
+      .step-item__node {
+        &::before {
+          --step-circle-color: var(--step-active-color);
+          --step-circle-bg: var(--step-active-color);
+
+          color: white;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.timeline {
+  --timeline-color: black;
+  --timeline-line-color: var(--secondary-color-lighter);
+  --timeline-dot-bg: white;
+  --timeline-dot-color: var(--primary-color);
+  --timeline-timestamp-col: 3;
+
+  position: relative;
+  display: grid;
+  gap: unit(10);
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: unit(3.5);
+  line-height: 1;
+  color: var(--timeline-color);
+
+  &-line {
+    position: absolute;
+    top: 0;
+    left: unit(1.5);
+    width: unit(1);
+    height: 100%;
+    background: var(--timeline-line-color);
+  }
+
+  &-item {
+    &__timestamp {
+      display: grid;
+      grid-template-columns: repeat(var(--timeline-timestamp-col), auto) 1fr;
+      align-items: center;
+      gap: unit(1.5);
+
+      .dot {
+        @include circle(unit(4));
+        position: relative;
+        background: var(--timeline-dot-bg);
+
+        &::before {
+          @include inset(unit(-1));
+          position: absolute;
+          content: '';
+          background: var(--timeline-dot-bg);
+        }
+
+        &::after {
+          @include cover($width: unit(2), $height: unit(2));
+          content: '';
+          border: 4px solid var(--timeline-dot-color);
+          border-radius: inherit;
+        }
+      }
+
+      a {
+        font-weight: bold;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+    }
+
+    &__content {
+      margin: unit(4.5) 0 0 unit(15.75);
+      line-height: 1.5;
+    }
+  }
+}

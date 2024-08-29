@@ -1,0 +1,56 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.input-spinner {
+  --spinner-default-color: var(--secondary-color-darkest);
+  --spinner-active-color: var(--primary-color);
+  --spinner-max-width: #{unit(16)};
+
+  .btn {
+    --btn-radius: 10px;
+
+    @include flex-center;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-color: var(--secondary-color);
+    }
+
+    i {
+      transition: 0.3s;
+    }
+  }
+
+  .form-control {
+    --input-border-color: var(--secondary-color);
+
+    box-sizing: border-box;
+    max-width: var(--spinner-max-width);
+    text-align: center;
+    color: var(--spinner-default-color);
+    border-left: none;
+    border-right: none;
+  }
+
+  .plus {
+    --plus-color: var(--spinner-default-color);
+
+    border-left: none;
+    padding-left: unit(2.5);
+
+    &:hover {
+      --plus-color: var(--spinner-active-color);
+    }
+  }
+
+  .minus {
+    --minus-color: var(--spinner-default-color);
+
+    padding-right: unit(2.5);
+
+    &:hover {
+      --minus-color: var(--spinner-active-color);
+    }
+  }
+}

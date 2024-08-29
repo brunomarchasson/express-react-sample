@@ -1,0 +1,27 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.avatar {
+  --avatar-width: #{unit(10)};
+  --avatar-bg: transparent;
+  --avatar-border: none;
+  --avatar-radius: 50%;
+
+  @include flex-center($display: inline-flex);
+  @include square(var(--avatar-width));
+  position: relative;
+  line-height: 1;
+  vertical-align: middle;
+  background: var(--avatar-bg);
+  border: var(--avatar-border);
+  border-radius: var(--avatar-radius);
+
+  @each $type in $types {
+    @include avatar-color-with-state($type);
+  }
+
+  img {
+    @include square(100%);
+    border-radius: inherit;
+  }
+}

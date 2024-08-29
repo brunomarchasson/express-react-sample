@@ -1,0 +1,48 @@
+.pagination {
+  --pagination-active-color: var(--primary-color);
+  --pagination-disabled-color: var(--secondary-color);
+
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  line-height: 1;
+
+  .page-item {
+    padding: 0 unit(3);
+    cursor: pointer;
+
+    &:not(.disabled):hover,
+    &.active {
+      .page-link {
+        color: var(--pagination-active-color);
+        fill: var(--pagination-active-color);
+      }
+    }
+
+    &.active {
+      cursor: default;
+
+      .page-link {
+        cursor: default;
+      }
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+
+      .page-link {
+        color: var(--pagination-disabled-color);
+        fill: var(--pagination-disabled-color);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .page-link {
+    display: block;
+    color: black;
+    text-decoration: none;
+    transition: 0.1s;
+  }
+}

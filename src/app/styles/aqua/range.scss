@@ -1,0 +1,39 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.form-control-range {
+  --range-height: #{unit(0.5)};
+  --range-bar-bg: var(--secondary-color-lighter);
+  --range-bar-radius: 30px;
+  --range-thumb-width: #{unit(5)};
+  --range-thumb-bg: white;
+  --range-thumb-border-color: var(--primary-color);
+
+  height: var(--range-height);
+  background: var(--range-bar-bg);
+  border-radius: var(--range-bar-radius);
+  appearance: none;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    @include circle(var(--range-thumb-width));
+    background: var(--range-thumb-bg);
+    border: 2px solid var(--range-thumb-border-color);
+    cursor: grab;
+    appearance: none;
+    transition: 0.3s;
+  }
+
+  &:hover,
+  &:active {
+    &::-webkit-slider-thumb {
+      transform: scale(1.2);
+    }
+  }
+
+  &:active {
+    &::-webkit-slider-thumb {
+      cursor: grabbing;
+    }
+  }
+}

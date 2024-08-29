@@ -1,0 +1,75 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.dropdown {
+  --dropdown-color: black;
+  --dropdown-toggle-color: var(--primary-color);
+  --dropdown-item-color: white;
+  --dropdown-item-hover-color: hsl(0, 0%, 96%);
+  --dropdown-item-divider-color: rgba(255, 255, 255, 0.2);
+
+  position: relative;
+
+  .dropdown-toggle {
+    color: var(--dropdown-toggle-color);
+    text-decoration: none;
+    transition: 0.4s;
+
+    &::after {
+      @include square(0);
+      display: inline-flex;
+      vertical-align: middle;
+      margin-left: unit(1);
+      content: '';
+      border-style: solid;
+      border-width: 5px 5px 0 6px;
+      border-color: var(--dropdown-toggle-color) transparent transparent
+        transparent;
+      transition: 0.4s;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    margin: 0;
+    padding: unit(1) 0;
+    list-style-type: none;
+    transform: perspective(400px) rotateX(-90deg);
+    transform-origin: top;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    transition: 0.4s;
+
+    .dropdown-item a {
+      display: block;
+      padding: unit(1.5) unit(3);
+      text-align: center;
+      text-decoration: none;
+      color: var(--dropdown-color);
+      background: var(--dropdown-item-color);
+      transition: 0.4s;
+
+      &:hover {
+        background: var(--dropdown-item-hover-color);
+      }
+    }
+
+    .dropdown-item:not(:last-child) a {
+      border-bottom: 1px solid var(--dropdown-item-divider-color);
+    }
+  }
+
+  &:hover {
+    .dropdown-toggle {
+      &::after {
+        transform: scaleY(-1);
+      }
+    }
+
+    .dropdown-menu {
+      transform: rotate(0);
+    }
+  }
+}

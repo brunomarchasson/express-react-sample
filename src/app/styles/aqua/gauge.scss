@@ -1,0 +1,35 @@
+// @import './variables.scss';
+// @import './mixins.scss';
+
+.gauge {
+  --gauge-width: #{unit(22.5)};
+  --gauge-value: 500;
+  --gauge-max-value: 1000;
+  --gauge-percentage: calc(var(--gauge-value) / var(--gauge-max-value) * 100%);
+  --gauge-bg: white;
+  --gauge-circle-color: var(--primary-color);
+  --gauge-circle-color-lighter: var(--primary-color-lighter);
+  --gauge-color: black;
+
+  @include flex-center;
+  @include circle(var(--gauge-width));
+  position: relative;
+  color: var(--gauge-color);
+  background: conic-gradient(
+    var(--gauge-circle-color) var(--gauge-percentage),
+    var(--gauge-circle-color-lighter) 0
+  );
+  counter-reset: value var(--gauge-value);
+
+  &::before {
+    @include cover($top: auto, $left: auto, $width: 90%, $height: 90%);
+    @include flex-center;
+    content: counter(value);
+    background: var(--gauge-bg);
+    border-radius: inherit;
+  }
+
+  @each $type in $types {
+    @include gauge-color-with-state($type);
+  }
+}

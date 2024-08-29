@@ -1,0 +1,20 @@
+// @use 'variables' as *;
+// @use 'mixins' as *;
+
+.alert {
+  --alert-padding: #{unit(3.5)} #{unit(7)};
+  --alert-radius: 4px;
+  --close-icon-color: currentColor;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--alert-padding);
+  background: var(--alert-color);
+  border-radius: var(--alert-radius);
+  transition: 0.3s;
+
+  @each $type in $types {
+    @include alert-color-with-state($type);
+  }
+}

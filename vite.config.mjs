@@ -1,17 +1,21 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
+import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from 'vite';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import env from './src/env';
+// import reactRefresh from '@vitejs/plugin-react-refresh';
 
-const { PORT = 3001 } = process.env;
-
+const {PORT} = env
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [reactRefresh()],
+  plugins: [react()
+    //,reactRefresh()
+    ],
   server: {
     proxy: {
       '/api': {
+        target: `http://localhost:${PORT}`,
+        changeOrigin: true,
+      },
+      '/auth': {
         target: `http://localhost:${PORT}`,
         changeOrigin: true,
       },
