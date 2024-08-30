@@ -4,11 +4,15 @@ import cors from 'cors';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import { Request, Response } from 'express';
-import { authRouter } from './routes/auth.routes';
+// import { authRouter } from './routes/auth.routes';
 import { userRouter } from './routes/user.routes';
 import { errorHandler } from './middleware/errorHandler';
 import { RespExampleType } from './typings/types';
 import { AppDataSource } from './data-source';
+import { authService } from './services/Auth';
+import { User } from './entity/User.entity';
+import { mailService } from './services/Mailer';
+// import { httpLogs } from './services/Log/httplog';
 
 AppDataSource.initialize()
   .then(() => {})
@@ -17,15 +21,24 @@ AppDataSource.initialize()
   });
 
 const app: Application = express();
-
 app.use(express.json({ limit: '20mb' }));
 app.use(cookieParser());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(errorHandler);
+
+// app.use(httpLogs)
+app.use('/mail', mailService());
+app.use(
+  '/auth',
+  authService({
+    url: 'toto',
+    dataSource: AppDataSource,
+    entity: User,
+  }),
+);
 // Serve a successful response. For use with wait-on
-app.use('/auth', authRouter);
+// app.use('/auth', authRouter);
 app.use('/api/v1', userRouter);
 
 app.get('/api/v1/health', (req, res) => {

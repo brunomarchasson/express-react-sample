@@ -1,0 +1,142 @@
+{
+    "level": "error",
+    "logId": "31487753344593f9f81c8aabc300d742",
+    "timestamp": "Aug-30-2024 16:45:56",
+    "appInfo": {
+        "appVersion": "0.0.0",
+        "proccessId": 26172
+    },
+    "message": "Error",
+    "data": {
+        "request": {
+            "headers": {
+                "host": "localhost:19200",
+                "connection": "keep-alive",
+                "sec-ch-ua": "\"Not)A;Brand\";v=\"99\", \"Google Chrome\";v=\"127\", \"Chromium\";v=\"127\"",
+                "accept": "application/json",
+                "sec-ch-ua-mobile": "?0",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+                "sec-ch-ua-platform": "\"Windows\"",
+                "sec-fetch-site": "same-origin",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-dest": "empty",
+                "referer": "http://localhost:19200/",
+                "accept-encoding": "gzip, deflate, br, zstd",
+                "accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+                "cookie": "next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000; next-auth.csrf-token=65e5ddb24fea517a53359d0fcf217430d410a37bcec3ea230b34301abad6cd5a%7C24d35a20717c54bdb4cbc887cbe06aca3a5093ef36946edbc3066169ae4f5afc; access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJlbWFpbCI6ImVtYWlsIiwibmFtZSI6Im5hbWUiLCJpYXQiOjE3MjQ2NjgzMzh9._py_1xQVmmjlKZxv4EC3A2s7T_pBo3JLbPYunckO7O8"
+            },
+            "host": "localhost:19200",
+            "baseUrl": "/auth",
+            "url": "/login",
+            "method": "GET",
+            "body": {},
+            "params": {},
+            "query": {},
+            "clientIp": "::1"
+        },
+        "response": {
+            "headers": {
+                "x-powered-by": "Express",
+                "access-control-allow-origin": "*",
+                "content-type": "application/json; charset=utf-8"
+            },
+            "statusCode": 401,
+            "requestDuration": "0.001s",
+            "body": "{\"message\":\"Unauthorized\"}"
+        }
+    }
+}
+{
+    "level": "info",
+    "logId": "8f3303b2bb181d7d63895ccc9df1d3a3",
+    "timestamp": "Aug-30-2024 16:46:24",
+    "appInfo": {
+        "appVersion": "0.0.0",
+        "proccessId": 26172
+    },
+    "message": "Resource created successfully",
+    "data": {
+        "request": {
+            "headers": {
+                "host": "localhost:19200",
+                "connection": "keep-alive",
+                "content-length": "40",
+                "sec-ch-ua": "\"Not)A;Brand\";v=\"99\", \"Google Chrome\";v=\"127\", \"Chromium\";v=\"127\"",
+                "accept": "application/json",
+                "sec-ch-ua-platform": "\"Windows\"",
+                "sec-ch-ua-mobile": "?0",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+                "content-type": "application/json",
+                "origin": "http://localhost:19200",
+                "sec-fetch-site": "same-origin",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-dest": "empty",
+                "referer": "http://localhost:19200/login",
+                "accept-encoding": "gzip, deflate, br, zstd",
+                "accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+                "cookie": "next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000; next-auth.csrf-token=65e5ddb24fea517a53359d0fcf217430d410a37bcec3ea230b34301abad6cd5a%7C24d35a20717c54bdb4cbc887cbe06aca3a5093ef36946edbc3066169ae4f5afc; access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJlbWFpbCI6ImVtYWlsIiwibmFtZSI6Im5hbWUiLCJpYXQiOjE3MjQ2NjgzMzh9._py_1xQVmmjlKZxv4EC3A2s7T_pBo3JLbPYunckO7O8"
+            },
+            "host": "localhost:19200",
+            "baseUrl": "/auth",
+            "url": "/login",
+            "method": "POST",
+            "body": {
+                "email": "toto@tt.com",
+                "password": "pwd"
+            },
+            "params": {},
+            "query": {},
+            "clientIp": "::1"
+        },
+        "response": {
+            "headers": {
+                "x-powered-by": "Express",
+                "access-control-allow-origin": "*",
+                "set-cookie": "authcookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhMjM4N2I3LTFjMTYtNGQ2MS05ZmRjLWQyMjBiY2U0M2YwNyIsImlhdCI6MTcyNTAyOTE4NCwiZXhwIjoxNzI1ODkzMTg0fQ.XOr7WcSi2bRcigRfDKdLrUcSbFipoKCAhfnDv0f6Ll8; Max-Age=864000; Path=/; Expires=Mon, 09 Sep 2024 14:46:24 GMT; HttpOnly",
+                "content-type": "application/json; charset=utf-8"
+            },
+            "statusCode": 200,
+            "requestDuration": "0.328s",
+            "body": "{\"message\":\"Login successful\",\"user\":{\"id\":\"8a2387b7-1c16-4d61-9fdc-d220bce43f07\",\"name\":\"toto\",\"email\":\"toto@tt.com\",\"password\":\"$2b$12$Kn8/UNhCugR/6A.yYNznuOW8ey4mK0kE2kcD2Utb8GuX2o4WonFrW\",\"role\":\"user\",\"createdAt\":\"2024-08-27T09:17:46.569Z\",\"updatedAt\":\"2024-08-27T09:17:46.569Z\"},\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhMjM4N2I3LTFjMTYtNGQ2MS05ZmRjLWQyMjBiY2U0M2YwNyIsImlhdCI6MTcyNTAyOTE4NCwiZXhwIjoxNzI1ODkzMTg0fQ.XOr7WcSi2bRcigRfDKdLrUcSbFipoKCAhfnDv0f6Ll8\"}"
+        }
+    }
+}
+{
+    "level": "error",
+    "logId": "2a578bab40e6bba5488c9aea942c5eb0",
+    "timestamp": "Aug-30-2024 18:22:07",
+    "appInfo": {
+        "appVersion": "0.0.0",
+        "proccessId": 32688
+    },
+    "message": "mail not found",
+    "data": {
+        "mailId": "44"
+    }
+}
+{
+    "level": "error",
+    "logId": "28e9cef1295e4d2ff033f782e842290c",
+    "timestamp": "Aug-30-2024 18:23:22",
+    "appInfo": {
+        "appVersion": "0.0.0",
+        "proccessId": 33924
+    },
+    "message": "mail not found",
+    "data": {
+        "mailId": "44"
+    }
+}
+{
+    "level": "error",
+    "logId": "ab1896c7574a4048b2d72976ff07c79e",
+    "timestamp": "Aug-30-2024 18:24:12",
+    "appInfo": {
+        "appVersion": "0.0.0",
+        "proccessId": 20652
+    },
+    "message": "mail not found",
+    "data": {
+        "mailId": "44"
+    }
+}
