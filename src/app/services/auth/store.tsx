@@ -1,6 +1,6 @@
 import { create } from 'zustand';
-import { authResponse, UserDTO } from '../../../../dto/user.dto';
 import { api } from '../api';
+import { authResponse, UserDTO } from '../../typings/types';
 
 interface useAuthStore {
   user?: UserDTO | null; // <-- optional to allow undefined

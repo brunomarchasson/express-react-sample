@@ -14,14 +14,13 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "jsx": "react",
-    "allowJs": false,
+    "allowJs": true,
     "isolatedModules": true,
     "skipLibCheck": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-
     "typeRoots": ["./src/typings/*.d.ts", "./node_modules/@types"]
   },
   "include": ["./src/app"]
