@@ -1,6 +1,7 @@
+import React from 'react';
 import { Suspense } from 'react';
 import { useLoaderData, useOutlet, Await } from 'react-router-dom';
-import { authResponse } from '../../../dto/user.dto';
+import { authResponse } from '../typings/types';
 
 export const InitLayout = () => {
   const outlet = useOutlet();

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAuth } from '../services/auth/store';
 
 const Home = () => {

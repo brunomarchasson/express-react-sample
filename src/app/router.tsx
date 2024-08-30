@@ -11,7 +11,7 @@ import AuthPage from './pages/auth/Auth';
 import { ProtectedLayout } from './layout/ProtectedLayout';
 import { useAuth } from './services/auth/store';
 import Home from './pages/Home';
-import UiPage from './pages/ui/UiPage';
+import UiPage from './pages/ui/UiPage.jsx';
 
 const initAuthPromise = new Promise((resolve, reject) => {
   setTimeout(() => {

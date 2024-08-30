@@ -140,3 +140,16 @@
         "mailId": "44"
     }
 }
+{
+    "level": "error",
+    "logId": "1234b678cac6851fbde835925447431a",
+    "timestamp": "Aug-30-2024 18:26:46",
+    "appInfo": {
+        "appVersion": "0.0.0",
+        "proccessId": 22452
+    },
+    "message": "mail not found",
+    "data": {
+        "mailId": "44"
+    }
+}
