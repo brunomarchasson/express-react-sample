@@ -8,6 +8,13 @@ import { authRouter } from './routes/auth.routes';
 import { userRouter } from './routes/user.routes';
 import { errorHandler } from './middleware/errorHandler';
 import { RespExampleType } from './typings/types';
+import { AppDataSource } from './data-source';
+
+AppDataSource.initialize()
+  .then(() => {})
+  .catch((err) => {
+    console.error('Error during Data Source initialization', err);
+  });
 
 const app: Application = express();
 
@@ -33,8 +40,6 @@ app.get(`/api/v1/version`, (req: Request, res: Response) => {
   };
   res.send(respObj);
 });
-
-console.log('currentDir', __dirname);
 
 // Serve storybook production bundle
 app.use('/storybook', express.static('dist/storybook'));

@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 
 import { User } from './entity/User.entity';
 import env from './env';
-console.log('User', User);
+
 const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE, APP_ENV } =
   env;
 

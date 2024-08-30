@@ -14,6 +14,8 @@ export default cleanEnv(process.env, {
   PORT: num({ default: 9000 }),
   APP_ENV: str({ choices: ['prod', 'test', 'dev'] }),
 
+  MAX_CLUSTERS: num({ default: Infinity }),
+
   SMTP_SERVER: str(),
   SMTP_PORT: num(),
   SMTP_USER: str(),
