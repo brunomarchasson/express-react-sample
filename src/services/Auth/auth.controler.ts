@@ -4,19 +4,27 @@ import { Repository, ObjectLiteral } from 'typeorm';
 import ms from 'ms';
 import { encrypt } from '../../helpers/encrypt';
 import env from '../../env';
+import { SignOptions } from 'jsonwebtoken';
+import { ResetPasswordEmail } from '../../emails/resetPassword';
+import generateEmail, { sendEmail } from '../Mailer/utils';
 
 interface authControlerOptions {
   repository: Repository<ObjectLiteral>;
+  resetUrl: string;
 }
 
 export const AUTH_COOKIE_NAME = 'authcookie';
 
-export function authControler({ repository }: authControlerOptions) {
-  function getToken(user: ObjectLiteral): string {
-    return encrypt.generateToken({
-      id: user.id,
-    });
+export function authControler({ repository, resetUrl }: authControlerOptions) {
+  function getToken(user: ObjectLiteral, opts?: SignOptions): string {
+    return encrypt.generateToken(
+      {
+        id: user.id,
+      },
+      opts,
+    );
   }
+
   function sendUserCookie(res: Response, token: string) {
     console.log('maxAge', ms(env.SESSION_EXPIRES));
     res.cookie(AUTH_COOKIE_NAME, token, {
@@ -24,6 +32,7 @@ export function authControler({ repository }: authControlerOptions) {
       httpOnly: true,
     });
   }
+
   async function renew(req: Request, res: Response) {
     console.log('renew', req.context?.currentUser);
 
@@ -38,6 +47,7 @@ export function authControler({ repository }: authControlerOptions) {
     sendUserCookie(res, token);
     return res.status(200).json({ message: 'Login successful', user, token });
   }
+
   async function logout(req: Request, res: Response) {
     res.clearCookie(AUTH_COOKIE_NAME);
     res.end();
@@ -45,11 +55,10 @@ export function authControler({ repository }: authControlerOptions) {
 
   async function login(req: Request, res: Response) {
     try {
-      console.log('ss');
       const { email, password } = req.body;
       if (!email || !password) {
         return res
-          .status(500)
+          .status(400)
           .json({ message: ' email and password required' });
       }
 
@@ -58,10 +67,11 @@ export function authControler({ repository }: authControlerOptions) {
         user?.password ?? '',
         password,
       );
-      console.log('isPasswordValid', isPasswordValid);
+
       if (!user || !isPasswordValid) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(401).json({ message: 'Bad credentials' });
       }
+
       const token = await getToken(user);
       sendUserCookie(res, token);
       return res.status(200).json({ message: 'Login successful', user, token });
@@ -70,6 +80,7 @@ export function authControler({ repository }: authControlerOptions) {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+
   async function signup(req: Request, res: Response) {
     const { name, email, password, role } = req.body;
     const encryptedPassword = await encrypt.encryptpass(password);
@@ -79,6 +90,7 @@ export function authControler({ repository }: authControlerOptions) {
       password: encryptedPassword,
       role,
     });
+
     // const user = new User();
     // user.name = name;
     // user.email = email;
@@ -94,6 +106,26 @@ export function authControler({ repository }: authControlerOptions) {
       .status(200)
       .json({ message: 'User created successfully', token, user });
   }
+
+  async function forgotPassword(req: Request, res: Response) {
+    const { email } = req.body;
+    console.log('forgot', email);
+    if (!email) return res.status(400).json({ message: 'email is required' });
+    res.status(204).end();
+    const user = await repository.findOne({ where: { email } });
+    if (user) {
+      const token = await getToken(user, { expiresIn: '1h' });
+      const url = `${resetUrl}?token=${token}`;
+      const html = await generateEmail(ResetPasswordEmail, {
+        username: user.name,
+        resetPasswordLink: url,
+      });
+      sendEmail(user.email, 'reset password', html);
+    }
+    return;
+  }
+  async function resetPassword() {}
+  // req: Request, res: Response
   return {
     getToken,
     sendUserCookie,
@@ -101,5 +133,7 @@ export function authControler({ repository }: authControlerOptions) {
     logout,
     login,
     signup,
+    forgotPassword,
+    resetPassword,
   };
 }

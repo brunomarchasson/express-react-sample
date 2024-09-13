@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import env from '../env';
 import { JWTpayload } from '../typings/types';
@@ -14,9 +14,10 @@ export class encrypt {
     return bcrypt.compare(password, hashPassword);
   }
 
-  static generateToken(payload: JWTpayload) {
+  static generateToken(payload: JWTpayload, opts: SignOptions = {}) {
     return jwt.sign(payload, env.JWT_SECRET, {
       expiresIn: env.SESSION_EXPIRES,
+      ...opts,
     });
   }
 }

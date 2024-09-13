@@ -1,41 +1,17 @@
 import nodemailer from 'nodemailer';
-import MAILS from './Mails/index';
 import env from '../../env';
-import { httpLogger } from '../Log';
-
-const defaultVars = {
-  projectName: env.APP_NAME ?? 'Awesome project',
-  email: 'toto@toto.com',
-  account: {
-    id: '1',
-    email: 'toto@toto.com',
-  },
-  inviteToken: '[token]',
-};
-
-const defaultTheme = {
-  bgColor: '#042440',
-  textColor: '#ffffff',
-  primaryColor: '#29B3CC',
-  secondaryColor: '#112f4a',
-  tertiaryColor: '#447C94',
-  round: '15px',
-};
+import { render } from '@react-email/components';
+import React from 'react';
 
 export const generateEmail = (
-  emailId: string,
-  vars = defaultVars,
-  theme = defaultTheme,
+  Element: React.FC,
+  props: object,
+  options = undefined,
 ) => {
-  const mailToRender = MAILS[emailId];
-  if (!mailToRender) {
-    httpLogger.error('mail not found', { mailId: emailId });
-    throw new Error('mail not found');
-  }
-  return mailToRender(vars, theme) as string;
+  return render(<Element {...props} />, options);
 };
 
-export const sendEmail = (email: string, subject: string, html: string) =>
+export const sendEmail = (to: string, subject: string, html: string) =>
   new Promise<void>((resolve, reject) => {
     try {
       const transporter = nodemailer.createTransport({
@@ -50,7 +26,7 @@ export const sendEmail = (email: string, subject: string, html: string) =>
 
       const mailOptions = {
         from: env.SMTP_USER,
-        to: email,
+        to: to,
         subject,
         html: html,
       };

@@ -11,7 +11,7 @@ import { RespExampleType } from './typings/types';
 import { AppDataSource } from './data-source';
 import { authService } from './services/Auth';
 import { User } from './entity/User.entity';
-import { mailService } from './services/Mailer';
+import env from './env';
 // import { httpLogs } from './services/Log/httplog';
 
 AppDataSource.initialize()
@@ -28,11 +28,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(errorHandler);
 
 // app.use(httpLogs)
-app.use('/mail', mailService());
 app.use(
   '/auth',
   authService({
-    url: 'toto',
+    resetUrl: env.APP_URL + '/reset-password',
     dataSource: AppDataSource,
     entity: User,
   }),
@@ -58,6 +57,8 @@ app.get(`/api/v1/version`, (req: Request, res: Response) => {
 app.use('/storybook', express.static('dist/storybook'));
 
 // Serve app production bundle
+app.use('/public', express.static('public'));
+
 app.use(express.static('dist/app'));
 
 // Handle client routing, return all requests to the app

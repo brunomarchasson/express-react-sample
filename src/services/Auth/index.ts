@@ -17,7 +17,7 @@ declare global {
 }
 
 interface authOption<T extends EntityTarget<ObjectLiteral>> {
-  url: string;
+  resetUrl: string;
   dataSource: DataSource;
   entity: T;
 }
@@ -28,6 +28,7 @@ export function authService<T extends EntityTarget<ObjectLiteral>>(
   const repository = options.dataSource.getRepository(options.entity);
   const controler = authControler({
     repository,
+    resetUrl: options.resetUrl,
   });
   Router.get('/test', async (req: Request, res: Response) => {
     const r = await repository.find();
@@ -37,8 +38,8 @@ export function authService<T extends EntityTarget<ObjectLiteral>>(
   Router.post('/login', controler.login);
   Router.post('/logout', controler.logout);
   Router.post('/signup', controler.signup);
-
-  console.log('Configured url', options.url);
+  Router.post('/forgot', controler.forgotPassword);
+  Router.post('/reset', controler.resetPassword);
 
   return Router;
 }

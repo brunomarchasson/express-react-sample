@@ -6,6 +6,7 @@ interface useAuthStore {
   user?: UserDTO | null; // <-- optional to allow undefined
   token?: string;
   signIn: (username: string, password: string) => Promise<void>;
+  forgot: (email: string) => Promise<void>;
   logout: () => Promise<void>;
   renew: () => Promise<authResponse | null>;
 }
@@ -29,6 +30,9 @@ export const useAuth = create<useAuthStore>((set) => ({
       console.error(error);
       set({ user: null }); // <-- auth failed, set null
     }
+  },
+  forgot: async (email: string): Promise<void> => {
+    await api.post('auth/forgot', { json: { email } });
   },
   renew: async (): Promise<authResponse | null> => {
     try {

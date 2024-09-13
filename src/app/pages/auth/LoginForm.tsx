@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import style from './style.module.scss';
 import clsx from 'clsx';
 import { useAuth } from '../../services/auth/store';
+import { useToast } from '../../services/toast/store';
 
 type Inputs = {
   email: string;
@@ -11,7 +12,9 @@ type Inputs = {
 
 export default function LoginForm() {
   const login = useAuth((state) => state.signIn);
-
+  const forgotPassword = useAuth((state) => state.forgot);
+  const [forgot, setForgot] = useState(false);
+  const toaster = useToast((s) => s.toaster);
   const {
     register,
     handleSubmit,
@@ -20,8 +23,17 @@ export default function LoginForm() {
     mode: 'all',
   });
 
+  const toggleForgor = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setForgot((c) => !c);
+  };
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    login('toto@tt.com', 'pwd');
+    if (forgot) {
+      forgotPassword(data.email);
+      toaster.info('check your emails');
+    }
+    login(data.email, data.password);
     console.log(data);
   };
 
@@ -53,28 +65,33 @@ export default function LoginForm() {
           email
         </label>
       </div>
-      <div className="form-input-material">
-        <input
-          type="password"
-          id="password"
-          className="form-control-material"
-          placeholder=" "
-          {...register('password', {
-            required: {
-              value: true,
-              message: 'Password is required',
-            },
-          })}
-        />
-        <label htmlFor="password" data-tooltip={errors.password?.message}>
-          password
-        </label>
-      </div>
-      <button className="btn btn-secondary btn-link btn-sm">
-        forgot-password ?
+      {!forgot && (
+        <div className="form-input-material">
+          <input
+            type="password"
+            id="password"
+            className="form-control-material"
+            placeholder=" "
+            {...register('password', {
+              required: {
+                value: true,
+                message: 'Password is required',
+              },
+            })}
+          />
+          <label htmlFor="password" data-tooltip={errors.password?.message}>
+            password
+          </label>
+        </div>
+      )}
+      <button
+        onClick={toggleForgor}
+        className="btn btn-secondary btn-link btn-sm"
+      >
+        {forgot ? 'login' : 'forgot-password ?'}
       </button>
       <button className="btn btn-primary btn-ghost" type="submit">
-        Login
+        {forgot ? 'reset my password' : 'Login'}
       </button>
     </form>
   );

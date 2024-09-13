@@ -1,0 +1,17 @@
+@import './theme.json';
+
+// $colors: map-get($theme, "colors");
+
+@function get-colors($key) {
+  @if not map-has-key($colors, $key) {
+    @warn "Color `#{$key}` not found.";
+  }
+
+  @debug 'colors: #{map-get($colors, $key)}';
+  @return map-get($colors, $key);
+}
+:root {
+  // --primary-color: #{$primaryColor};
+  --primary-color: #{get-colors('primary')};
+  --secondary-color: #{get-colors('secondary')};
+}
