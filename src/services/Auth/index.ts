@@ -51,7 +51,7 @@ export const authentification = (
 ) => {
   const header = req.headers.authorization;
   const cookie = req.cookies[AUTH_COOKIE_NAME];
-
+  console.log(header);
   if (!header && !cookie) {
     return res.status(401).json({ message: 'Unauthorized' });
   }

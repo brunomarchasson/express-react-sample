@@ -1,0 +1,27 @@
+.collapse__wrapper {
+  // display: none;
+  grid-template-rows: 0fr;
+  display: grid;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 
+        //   opacity .5s ease-in, 
+        //   scale .5s ease-in,
+            // display .5s var(--ease-in-out-quad),
+      grid-template-rows 0.5s var(--ease-in-out-quad);
+    /* key to transitioning out */
+    // transition-behavior: allow-discrete;
+  }
+}
+
+.collapse__wrapper.is-open {
+  // display: grid;
+  grid-template-rows: 1fr;
+  // @starting-style {
+  //     display: grid;
+  //     grid-template-rows: 0fr;
+  //   }
+}
+
+.collapse__inner {
+  overflow: hidden;
+}

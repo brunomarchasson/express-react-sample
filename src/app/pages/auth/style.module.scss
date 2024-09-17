@@ -3,8 +3,11 @@
 }
 
 .card {
+  height: 100%;
   display: grid;
+  padding: 50px 40px;
   grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
   justify-content: space-between;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
@@ -14,18 +17,43 @@
     0 2.1px 2.1px rgba(128, 128, 128, 0.195),
     0 4.4px 4.4px rgba(128, 128, 128, 0.241),
     0 12px 12px rgba(128, 128, 128, 0.35);
+  & h1 {
+    margin: 0 0 24px 0;
+  }
+}
+
+.helper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1ch;
+  padding: 0;
+  padding: 0;
+  margin-bottom: -40px;
+  margin-inline: -40px;
+  align-items: center;
+  justify-items: flex-end;
+  align-self: flex-end;
+  text-align: right;
+  & a,
+  button {
+    padding: 0;
+    justify-self: flex-start;
+  }
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  // transform: translateY(100%);
+  // backface-visibility: hidden;
 }
 
 .form {
-  display: grid;
-  gap: 1rem;
   align-items: center;
-  padding: 50px 40px;
-  color: white;
-  // background: rgba(0, 0, 0, 0.8);
-
-  h1 {
-    margin: 0 0 24px 0;
+  display: grid;
+  flex-direction: column;
+  align-content: start;
+  & button {
+    margin-top: 2rem;
   }
 }
 
@@ -36,8 +64,15 @@
   margin: 12px 0;
 
   input {
-    color: white;
+    // color: white;
   }
+}
+
+.passwordVisibility {
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  height: 100%;
 }
 
 .error {

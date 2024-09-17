@@ -9,6 +9,7 @@ Router.get(
   [authentification, authorization(['admin'])],
   UserController.getUsers,
 );
+Router.get('/me', [authentification], UserController.me);
 // Router.get(
 //   "/profile",
 //   [authentification, authorization(["user", "admin"])],

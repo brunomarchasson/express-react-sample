@@ -12,6 +12,7 @@ import { ProtectedLayout } from './layout/ProtectedLayout';
 import { useAuth } from './services/auth/store';
 import Home from './pages/Home';
 import UiPage from './pages/ui/UiPage.jsx';
+import ChangePassword from './pages/auth/changePassword';
 
 const initAuthPromise = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -36,6 +37,8 @@ export const router = createBrowserRouter(
 
       <Route element={<PublicLayout />}>
         <Route path="/login" element={<AuthPage />} />
+        <Route path="/register" element={<AuthPage register />} />
+        <Route path="/change_password" element={<ChangePassword />} />
       </Route>
       <Route path="/" element={<ProtectedLayout />}>
         <Route path="/" element={<Home />} />

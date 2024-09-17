@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import env from './src/env';
 import jsonImporter from 'node-sass-json-importer';
+import svgr from 'vite-plugin-svgr'
 // import jsonImporter from '@node-sass/json-importer';
 // import reactRefresh from '@vitejs/plugin-react-refresh';
 
@@ -10,6 +11,7 @@ const { PORT } = env;
 export default defineConfig({
   plugins: [
     react(),
+    svgr(),
     //,reactRefresh()
   ],
   css: {

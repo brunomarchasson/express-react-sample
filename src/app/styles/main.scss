@@ -1,11 +1,12 @@
 @use 'reset';
 @use 'aqua/aqua';
 @use 'theme';
+@use 'annimations';
 
 body {
-  background: #eceffc;
+  // background: #eceffc;
   scroll-behavior: smooth;
-  color-scheme: light;
+  // color-scheme: light;
   min-height: 100vh;
   min-height: 100dvh;
   margin: 0;

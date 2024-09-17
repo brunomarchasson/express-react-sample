@@ -4,6 +4,8 @@ import style from './style.module.scss';
 import clsx from 'clsx';
 import { useAuth } from '../../services/auth/store';
 import { useToast } from '../../services/toast/store';
+import { PasswordInput } from './PasswordInput';
+import { Link } from 'react-router-dom';
 
 type Inputs = {
   email: string;
@@ -23,7 +25,7 @@ export default function LoginForm() {
     mode: 'all',
   });
 
-  const toggleForgor = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleForgort = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setForgot((c) => !c);
@@ -36,63 +38,77 @@ export default function LoginForm() {
     login(data.email, data.password);
     console.log(data);
   };
-
+  console.log(errors);
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={clsx(style.form)}>
-      <h1>Login</h1>
-      <div className="form-input-material">
-        <input
-          id="email"
-          className={clsx('form-control-material', { invalid: !!errors.email })}
-          placeholder=" "
-          {...register('email', {
-            required: {
-              value: true,
-              message: 'Email is required',
-            },
-            validate: {
-              isValidEmail: (value) => {
-                console.log('ee, value');
-                return (
-                  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                  'Email is not valid'
-                );
-              },
-            },
-          })}
-        />
-        <label htmlFor="email" data-tooltip={errors.email?.message}>
-          email
-        </label>
-      </div>
-      {!forgot && (
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className={clsx(style.form)}>
         <div className="form-input-material">
           <input
-            type="password"
-            id="password"
-            className="form-control-material"
+            id="email"
+            className={clsx('form-control-material', {
+              invalid: !!errors.email,
+            })}
             placeholder=" "
-            {...register('password', {
+            {...register('email', {
               required: {
                 value: true,
-                message: 'Password is required',
+                message: 'Email is required',
+              },
+              validate: {
+                isValidEmail: (value) => {
+                  console.log('ee, value');
+                  return (
+                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                    'Email is not valid'
+                  );
+                },
               },
             })}
           />
-          <label htmlFor="password" data-tooltip={errors.password?.message}>
-            password
+          <label htmlFor="email" data-tooltip={errors.email?.message}>
+            email
           </label>
         </div>
-      )}
-      <button
-        onClick={toggleForgor}
-        className="btn btn-secondary btn-link btn-sm"
-      >
-        {forgot ? 'login' : 'forgot-password ?'}
-      </button>
-      <button className="btn btn-primary btn-ghost" type="submit">
-        {forgot ? 'reset my password' : 'Login'}
-      </button>
-    </form>
+
+        <div className={clsx('collapse__wrapper', { 'is-open': !forgot })}>
+          <div className="collapse__inner">
+            <div className="form-input-material">
+              <PasswordInput
+                id="password"
+                className="form-control-material"
+                placeholder=" "
+                {...register('password', {
+                  required: {
+                    value: !forgot,
+                    message: 'Password is required',
+                  },
+                })}
+              />
+              <label htmlFor="password" data-tooltip={errors.password?.message}>
+                password
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button className="btn btn-primary btn-ghost" type="submit">
+          {forgot ? 'reset my password' : 'Login'}
+        </button>
+      </form>
+      <div className={clsx('alert', style.helper)}>
+        {forgot ? 'Have an account ?' : 'Forgot your password ?'}
+        <button className="btn btn-secondary btn-link" onClick={toggleForgort}>
+          {forgot ? 'Login' : 'reset my password'}
+        </button>
+        You don't have an account ?
+        <Link
+          to="/register"
+          className="btn btn-secondary btn-link"
+          // onClick={() => setIsRegisterMode((cur) => !cur)}
+        >
+          Register
+        </Link>
+      </div>
+    </>
   );
 }

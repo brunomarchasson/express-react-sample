@@ -4,6 +4,17 @@ import { User } from '../entity/User.entity';
 import cache from 'memory-cache';
 
 export class UserController {
+  static async me(req: Request, res: Response) {
+    console.log('me');
+    const userRepository = AppDataSource.getRepository(User);
+    const user = await userRepository.findOne({
+      where: { id: req?.context?.currentUser?.id },
+    });
+    console.log(user);
+    return res.status(200).json({
+      data: user,
+    });
+  }
   static async getUsers(req: Request, res: Response) {
     const data = cache.get('data');
     if (data) {

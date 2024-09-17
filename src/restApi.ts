@@ -31,7 +31,7 @@ app.use(errorHandler);
 app.use(
   '/auth',
   authService({
-    resetUrl: env.APP_URL + '/reset-password',
+    resetUrl: env.APP_URL + '/change_password',
     dataSource: AppDataSource,
     entity: User,
   }),

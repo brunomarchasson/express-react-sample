@@ -61,7 +61,8 @@
     "stylelint-config-standard": "^36.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4",
-    "vite": "^5.4.2"
+    "vite": "^5.4.2",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
