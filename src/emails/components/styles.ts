@@ -1,4 +1,4 @@
-import theme from '../../app/styles/theme.json';
+import theme from '../../comon/theme.json';
 export const main = {
   backgroundColor: '#fff',
   fontFamily:

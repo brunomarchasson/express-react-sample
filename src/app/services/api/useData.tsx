@@ -65,8 +65,6 @@ export const useData = (url: string, opts = {}) => {
   useEffect(() => {
     let didCancel = false;
     const fetchData = async () => {
-      console.log(opts);
-      //   if (opts.waitAuth && !isAuthentified) return;
       dispatch({ type: dataFetchActionKind.FETCH_INIT });
       try {
         const result = await api.get(url, opts).json();

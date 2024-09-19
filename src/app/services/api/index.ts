@@ -6,14 +6,14 @@ export const TOKEN_NAME = 'authToken';
 let token = localStorage.getItem(TOKEN_NAME);
 
 export const api = ky.extend({
-  // prefixUrl: config.API_URL,
-  hooks: {
-    beforeRequest: [
-      (request) => {
-        if (token) request.headers.set('x-access-token', token);
-      },
-    ],
-  },
+  prefixUrl: '/api',
+  // hooks: {
+  //   beforeRequest: [
+  //     (request) => {
+  //       if (token) request.headers.set('x-access-token', token);
+  //     },
+  //   ],
+  // },
 });
 export const getApiToken = () => token;
 

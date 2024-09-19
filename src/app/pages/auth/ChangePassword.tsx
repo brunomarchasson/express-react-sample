@@ -6,10 +6,13 @@ import style from './style.module.scss';
 import { clsx } from 'clsx';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { PasswordInput } from './PasswordInput';
+import Loader from '../../components/Loader';
+import { api } from '../../services/api';
+import { useToast } from '../../services/toast/store';
 
 type Inputs = {
   password: string;
-  password2: string;
+  confirmPassword: string;
 };
 
 function ChangePassword() {
@@ -21,19 +24,31 @@ function ChangePassword() {
   } = useForm<Inputs>({
     mode: 'all',
   });
+  const toaster = useToast((s) => s.toaster);
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  const [{ isLoading, isError, data }] = useData('api/v1/me', {
+  const [{ isLoading, isError, data }] = useData('auth/me', {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // login(data.email, data.password);
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      await api.post('/api/auth/reset-password', {
+        headers: { Authorization: `Bearer ${token}` },
+        json: {
+          password: data.password,
+        },
+      });
+      toaster.success('password set');
+      // login(data.email, data.password);
+    } catch (e) {
+      console.error(e);
+      toaster.error('error');
+    }
   };
 
-  console.log(isLoading, isError, data);
   const renderContent = () => {
+    if (isLoading) return <Loader />;
     if (isError)
       return (
         <div className={style.form}>
@@ -42,9 +57,9 @@ function ChangePassword() {
       );
     return (
       <form onSubmit={handleSubmit(onSubmit)} className={clsx(style.form)}>
-        <h1>Change password</h1>
         <div className={style.formLayout}>
           <div className="form-input-material">
+            {data?.name}
             <PasswordInput
               id="password"
               className="form-control-material"
@@ -58,22 +73,6 @@ function ChangePassword() {
             />
             <label htmlFor="password" data-tooltip={errors.password?.message}>
               password
-            </label>
-          </div>
-          <div className="form-input-material">
-            <PasswordInput
-              id="password2"
-              className="form-control-material"
-              placeholder=" "
-              {...register('password2', {
-                required: {
-                  value: true,
-                  message: 'Password2 is required',
-                },
-              })}
-            />
-            <label htmlFor="password2" data-tooltip={errors.password2?.message}>
-              password2
             </label>
           </div>
         </div>

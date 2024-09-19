@@ -6,7 +6,6 @@ import style from './style.module.scss';
 export const Toasts = () => {
   const toasts = useToast((s) => s.toasts);
   const show = useToast((s) => s.show);
-  console.log(toasts);
 
   if (!show) return;
   return (

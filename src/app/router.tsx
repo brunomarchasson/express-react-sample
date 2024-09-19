@@ -20,11 +20,10 @@ const initAuthPromise = new Promise((resolve, reject) => {
       .getState()
       .renew()
       .then((r) => {
-        console.log('res', r);
         resolve(r);
       })
       .catch(reject);
-  }, 2000);
+  }, 0);
 });
 
 export const router = createBrowserRouter(
@@ -38,7 +37,7 @@ export const router = createBrowserRouter(
       <Route element={<PublicLayout />}>
         <Route path="/login" element={<AuthPage />} />
         <Route path="/register" element={<AuthPage register />} />
-        <Route path="/change_password" element={<ChangePassword />} />
+        <Route path="/reset-password" element={<ChangePassword />} />
       </Route>
       <Route path="/" element={<ProtectedLayout />}>
         <Route path="/" element={<Home />} />

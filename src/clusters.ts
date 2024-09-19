@@ -3,14 +3,15 @@ import cluster from 'cluster';
 import env from './env';
 import os from 'os';
 import { createHttpServer } from './server';
+import logger from './services/Log/logger.service';
 
 const totalCPUs = os.availableParallelism();
 
 const clustersCount = Math.min(totalCPUs, env.MAX_CLUSTERS);
 
 if (cluster.isPrimary) {
-  console.log(`Number of CPUs is ${totalCPUs}`);
-  console.log(`Primary ${process.pid} is running`);
+  logger.info(`Number of CPUs is ${totalCPUs}`);
+  logger.info(`Primary ${process.pid} is running`);
 
   // Fork workers.
   for (let i = 0; i < clustersCount; i++) {
@@ -18,8 +19,8 @@ if (cluster.isPrimary) {
   }
 
   cluster.on('exit', (worker) => {
-    console.log(`worker ${worker.process.pid} died`);
-    console.log("Let's fork another worker!");
+    logger.info(`worker ${worker.process.pid} died`);
+    logger.info("Let's fork another worker!");
     cluster.fork();
   });
 } else {

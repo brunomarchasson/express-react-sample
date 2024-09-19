@@ -30,15 +30,18 @@ export default function LoginForm() {
     e.stopPropagation();
     setForgot((c) => !c);
   };
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (forgot) {
-      forgotPassword(data.email);
-      toaster.info('check your emails');
+      try {
+        await forgotPassword(data.email);
+        toaster.info('check your emails');
+      } catch (e) {
+        toaster.error('error');
+        console.error(e);
+      }
     }
     login(data.email, data.password);
-    console.log(data);
   };
-  console.log(errors);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className={clsx(style.form)}>
@@ -56,7 +59,6 @@ export default function LoginForm() {
               },
               validate: {
                 isValidEmail: (value) => {
-                  console.log('ee, value');
                   return (
                     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                     'Email is not valid'
