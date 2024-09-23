@@ -13,8 +13,10 @@ export const responseInterceptor =
     res.json = function (body: Record<string, unknown>) {
       if (validateSchema) {
         try {
-          validateSchema.parse(body);
-          return originalJson.call(this, body);
+          console.log(validateSchema);
+          const p = validateSchema.parse(body);
+          console.log(p);
+          return originalJson.call(this, p);
         } catch (err) {
           if (err instanceof ZodError) {
             console.error(err);

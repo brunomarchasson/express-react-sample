@@ -4,7 +4,8 @@
     "secondary": "#F5A300",
     "onPrimary": "#212121",
     "onSecondary": "#212121",
-    "surface": "#333333",
-    "onSurface": "#fff"
+    "surface": "rgba(0, 0, 0, 0.8)",
+    "onSurface": "#fff",
+    "bg": "#242424"
   }
 }

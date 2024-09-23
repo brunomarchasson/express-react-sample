@@ -36,12 +36,12 @@ export const Icon = ({ icon, size, className, rotate, ...rest }: Props) => {
         alignItems: 'center',
         transform: rotate ? `rotate(${rotate}deg)` : undefined,
         width: size,
-        // height: size,
+        height: size,
       }}
       {...rest}
     >
       {/* <Suspense fallback={null}> */}
-      <SvgIcon />
+      <SvgIcon size={size} />
       {/* </Suspense> */}
     </div>
   );

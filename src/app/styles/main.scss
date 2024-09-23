@@ -14,7 +14,15 @@ body {
   place-items: center;
   min-width: 320px;
 }
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
 
+.app {
+  width: 100vw;
+}
 .card-3d-wrap {
   position: relative;
   width: 440px;

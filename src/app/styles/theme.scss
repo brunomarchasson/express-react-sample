@@ -14,4 +14,7 @@
   // --primary-color: #{$primaryColor};
   --primary-color: #{get-colors('primary')};
   --secondary-color: #{get-colors('secondary')};
+  --bg-color: #{get-colors('bg')};
+  --surface-color: #{get-colors('surface')};
+  --on-surface-color: #{get-colors('onSurface')};
 }

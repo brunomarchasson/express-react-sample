@@ -60,7 +60,7 @@ export const handleGetUsers = async (
   const { results, paginatorInfo } = await getUsers(
     (req.context?.currentUser as JWTPayload).userId,
 
-    req.query,
+    // req.query,
   );
 
   return successResponse(res, undefined, { results, paginatorInfo });

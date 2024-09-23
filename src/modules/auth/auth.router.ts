@@ -18,6 +18,7 @@ import {
   handleResetPassword,
 } from './auth.controller';
 import { canAccess } from './middleware/can-access.middleware';
+import { userOutSchema } from '../user/user.dto';
 
 export const AUTH_ROUTER_ROOT = '/auth';
 
@@ -43,7 +44,12 @@ authRouter.get(
 
 authRouter.post('/logout', {}, handleLogout);
 
-authRouter.get('/me', {}, canAccess(), handleGetCurrentUser);
+authRouter.get(
+  '/me',
+  { response: userOutSchema },
+  canAccess(),
+  handleGetCurrentUser,
+);
 
 authRouter.post(
   '/forget-password',

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Navigate,
   Route,
   createBrowserRouter,
   createRoutesFromElements,
@@ -13,6 +14,9 @@ import { useAuth } from './services/auth/store';
 import Home from './pages/Home';
 import UiPage from './pages/ui/UiPage.jsx';
 import ChangePassword from './pages/auth/changePassword';
+import MyProfile from './pages/settings/MyProfile';
+import Accounts from './pages/settings/Accounts';
+import Account from './pages/settings/Account';
 
 const initAuthPromise = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -41,6 +45,13 @@ export const router = createBrowserRouter(
       </Route>
       <Route path="/" element={<ProtectedLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/settings" element={<Home />}>
+          <Route index element={<Navigate to="me" />} />
+          <Route path="me" element={<MyProfile />} />
+          <Route path="accounts" element={<Accounts />}>
+            <Route path=":accountId" element={<Account />}></Route>
+          </Route>
+        </Route>
       </Route>
 
       {/* <Route element={<PublicLayout />}>

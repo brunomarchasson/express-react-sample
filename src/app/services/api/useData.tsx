@@ -1,21 +1,24 @@
 import { useEffect, useReducer } from 'react';
 import { api } from '.';
 
-interface dataFetchState {
+interface dataFetchState<T> {
   isLoading: boolean;
   isError: boolean;
-  data?: object | null;
+  data?: T | null;
 }
 enum dataFetchActionKind {
   FETCH_INIT = 'FETCH_INIT',
   FETCH_SUCCESS = 'FETCH_SUCCESS',
   FETCH_FAILURE = 'FETCH_FAILURE',
 }
-interface dataFetchAction {
+interface dataFetchAction<DataT> {
   type: dataFetchActionKind;
-  payload?: object;
+  payload?: DataT;
 }
-const dataFetchReducer = (state: dataFetchState, action: dataFetchAction) => {
+const dataFetchReducer = <DataT extends object>(
+  state: dataFetchState<DataT>,
+  action: dataFetchAction<DataT>,
+): dataFetchState<DataT> => {
   switch (action.type) {
     case dataFetchActionKind.FETCH_INIT:
       return {
@@ -41,8 +44,11 @@ const dataFetchReducer = (state: dataFetchState, action: dataFetchAction) => {
   }
 };
 
-export const useData = (url: string, opts = {}) => {
-  const [state, dispatch] = useReducer(dataFetchReducer, {
+export const useData = <DataT extends object>(
+  url: string,
+  opts = {},
+): [dataFetchState<DataT>] => {
+  const [state, dispatch] = useReducer(dataFetchReducer<DataT>, {
     isLoading: false,
     isError: false,
     data: null,
@@ -51,10 +57,10 @@ export const useData = (url: string, opts = {}) => {
   const refresh = async () => {
     dispatch({ type: dataFetchActionKind.FETCH_INIT });
     try {
-      const result = await api.get(url).json();
+      const result = await api.get(url).json<DataT>();
       dispatch({
         type: dataFetchActionKind.FETCH_SUCCESS,
-        payload: result as object,
+        payload: result,
       });
     } catch (error) {
       console.error(error);
@@ -67,11 +73,11 @@ export const useData = (url: string, opts = {}) => {
     const fetchData = async () => {
       dispatch({ type: dataFetchActionKind.FETCH_INIT });
       try {
-        const result = await api.get(url, opts).json();
+        const result = await api.get(url, opts).json<DataT>();
         if (!didCancel) {
           dispatch({
             type: dataFetchActionKind.FETCH_SUCCESS,
-            payload: result as object,
+            payload: result,
           });
         }
       } catch (error) {
@@ -87,6 +93,5 @@ export const useData = (url: string, opts = {}) => {
       didCancel = true;
     };
   }, [/* isAuthentified, opts.waitAuth, */ url]);
-
   return [state, { refresh }];
 };

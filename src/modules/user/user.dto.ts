@@ -23,10 +23,17 @@ export const userOutSchema = z.object({
   name: z.string(),
   role: RoleTypeZ,
   phoneNo: z.string().optional(),
-  // socialAccount: z.array(socialAccountInfoSchema).optional(),
   updatedAt: z.date().optional(),
   createdAt: z.date().optional(),
 });
+
+export const userInSchema = z.object({
+  email: z.string().email(),
+  avatar: z.string().url().optional(),
+  name: z.string(),
+  role: RoleTypeZ,
+});
+export type userInType = z.infer<typeof userInSchema>;
 
 export const userSchema = userOutSchema.extend({
   // otp: z.string().nullable().optional(),
