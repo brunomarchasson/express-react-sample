@@ -13,9 +13,7 @@ export type RequestZodSchemaType = {
 export const sanitizeRecord = <T extends Record<any, any>>(record: T): T => {
   try {
     return Object.fromEntries(
-      Object.entries(record).filter(
-        ([, value]) => value !== null && value !== undefined,
-      ),
+      Object.entries(record).filter(([, value]) => value !== undefined),
     ) as T;
   } catch {
     return record;

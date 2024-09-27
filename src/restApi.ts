@@ -16,6 +16,7 @@ AppDataSource.initialize()
   .then(() => {})
   .catch((err) => {
     logger.error('Error during Data Source initialization', err);
+    console.log(err);
   });
 
 const app: Application = express();

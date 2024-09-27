@@ -15,17 +15,13 @@ import { UserModelType } from './user.dto';
 export const updateUser = async (
   userId: string,
   payload: Partial<User>,
-): Promise<User> => {
+): Promise<User | null> => {
   const repository = AppDataSource.getRepository(User);
+  console.log('updateUser', payload);
 
-  const user = await repository.save({
-    ...payload,
-    id: userId,
-  });
-
-  if (!user) throw new Error('User not found');
-
-  return user;
+  const result = await repository.update(userId, payload);
+  console.log('user', result);
+  return getUserById(userId);
 };
 
 export const getUserById = async (userId: string): Promise<User | null> => {
@@ -33,6 +29,7 @@ export const getUserById = async (userId: string): Promise<User | null> => {
   const user = await repository.findOne({
     where: { id: userId },
   });
+  console.log('getUserById=>', user);
   return user;
 };
 

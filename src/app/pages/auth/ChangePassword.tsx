@@ -6,9 +6,10 @@ import style from './style.module.scss';
 import { clsx } from 'clsx';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { PasswordInput } from './PasswordInput';
-import Loader from '../../components/Loader';
 import { api } from '../../services/api';
 import { useToast } from '../../services/toast/store';
+import { GlobalLoader } from '../../services/global-loader/Loader';
+import { UserDTO } from '../../../comon/types/api';
 
 type Inputs = {
   password: string;
@@ -27,7 +28,7 @@ function ChangePassword() {
   const toaster = useToast((s) => s.toaster);
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  const [{ isLoading, isError, data }] = useData('auth/me', {
+  const [{ isLoading, isError, data }] = useData<UserDTO>('auth/me', {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -48,7 +49,7 @@ function ChangePassword() {
   };
 
   const renderContent = () => {
-    if (isLoading) return <Loader />;
+    if (isLoading) return <GlobalLoader.Loader />;
     if (isError)
       return (
         <div className={style.form}>

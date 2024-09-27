@@ -6,6 +6,7 @@ import { clsx } from 'clsx';
 import BurgerMenu from './BurgerMenu';
 import { useToggle } from '../../hooks/useToggle';
 import { useIsMounted } from '../../hooks/useIsMounted';
+import Me from './Me';
 
 export function Nav({ children }: React.PropsWithChildren) {
   const [open, toggleOpen] = useToggle(false);
@@ -15,7 +16,7 @@ export function Nav({ children }: React.PropsWithChildren) {
       <div className={styles.sidebar}>
         <div className={styles.brand}>
           {/* <CompanyLogo /> */}
-          {/* <Me /> */}
+          <Me />
         </div>
         <div className={styles.menu}>
           <ul>

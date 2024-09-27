@@ -11,6 +11,7 @@ interface useAuthStore {
   signIn: (username: string, password: string) => Promise<void>;
   forgot: (email: string) => Promise<KyResponse<unknown>>;
   logout: () => Promise<void>;
+  setData: (data: UserDTO) => Promise<void>;
   renew: () => Promise<LoginResponseSchemaType | null>;
 }
 
@@ -19,6 +20,9 @@ export const useAuth = create<useAuthStore>((set) => ({
   logout: async () => {
     await api.post('auth/logout');
     set({ user: null });
+  },
+  setData: async (data: UserDTO) => {
+    set({ user: data });
   },
   signIn: async (email: string, password: string): Promise<void> => {
     // login process

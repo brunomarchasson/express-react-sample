@@ -19,18 +19,17 @@ export const RoleTypeZ = z.nativeEnum(ROLE_ENUM);
 export const userOutSchema = z.object({
   id: z.string().optional(),
   email: z.string().email(),
-  avatar: z.string().url().optional(),
+  avatar: z.string().url().optional().nullable(),
   name: z.string(),
   role: RoleTypeZ,
-  phoneNo: z.string().optional(),
   updatedAt: z.date().optional(),
   createdAt: z.date().optional(),
 });
 
 export const userInSchema = z.object({
   email: z.string().email(),
-  avatar: z.string().url().optional(),
-  name: z.string(),
+  avatar: z.string().url().optional().nullable(),
+  name: z.string().min(1),
   role: RoleTypeZ,
 });
 export type userInType = z.infer<typeof userInSchema>;

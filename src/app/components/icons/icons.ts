@@ -4,9 +4,14 @@ import {
   Camera,
   CircleCheck,
   CircleCheckBig,
+  CircleUserRound,
   ImageUp,
+  LogIn,
+  LogOut,
   Trash,
   UserRoundPen,
+  UserRoundPlus,
+  UsersRound,
 } from 'lucide-react';
 
 export const icons = {
@@ -18,6 +23,11 @@ export const icons = {
   CircleCheckBig,
   CircleCheck,
   UserRoundPen,
+  LogIn,
+  LogOut,
+  UserRoundPlus,
+  UsersRound,
+  CircleUserRound,
 };
 
 // import { lazy as _lazy } from "react";

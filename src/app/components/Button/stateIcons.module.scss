@@ -1,0 +1,93 @@
+$circle-length: 300px;
+$check-length: 35px;
+
+@keyframes scaleAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(3);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.8);
+  }
+}
+
+@keyframes drawCircle {
+  0% {
+    stroke-dashoffset: $circle-length;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawCheck {
+  0% {
+    stroke-dashoffset: $check-length;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawLine {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+#successAnimationCircle,
+#failureAnimationCircle {
+  stroke-dasharray: $circle-length $circle-length;
+  // stroke: currentColor;
+}
+
+#successAnimationCheck,
+#failureAnimationCheck {
+  stroke-dasharray: $check-length $check-length;
+  // stroke: currentColor;
+}
+
+#successAnimation.animated,
+#failureAnimation.animated {
+  animation: 1s ease-out 0s 1 both scaleAnimation;
+
+  #successAnimationCircle,
+  #failureAnimationCircle {
+    animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCircle;
+  }
+
+  #successAnimationCheck {
+    animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCheck;
+  }
+
+  .failureAnimationCheckLine {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawLine 1s cubic-bezier(1, 0.2, 0.1, 1) forwards;
+  }
+}
+
+#animate {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  border: 0;
+  border-radius: 3px;
+  bottom: 100px;
+  color: currentColor;
+  left: 50%;
+  outline: 0;
+  padding: 10px 30px;
+  position: absolute;
+  transform: translateX(-50%);
+  &:active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

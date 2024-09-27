@@ -5,9 +5,10 @@ import React, {
   DragEvent,
   useCallback,
 } from 'react';
-import style from './imageinput.style.module.scss';
+import style from './avatarInput.style.module.scss';
 import { Icon } from '../icons';
 import clsx from 'clsx';
+import Avatar from '../Avatar';
 
 // Constants for file size limit and supported formats
 const FILE_SIZE_LIMIT_MB = 15;
@@ -19,7 +20,7 @@ interface ImageInputProps {
   className?: string;
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({
+const AvatarInput: React.FC<ImageInputProps> = ({
   onChange: onChange,
   className,
   value,
@@ -88,9 +89,11 @@ const ImageInput: React.FC<ImageInputProps> = ({
           />
         </div>
       )}
-      <div className={style.preview}>
+      <Avatar className={style.avatarPreview} data={file} />
+
+      {/* <div className={style.preview}>
         {file ? <img src={file}></img> : <Icon icon="UserRoundPen" size={64} />}
-      </div>
+      </div> */}
       <input
         type="file"
         hidden
@@ -102,4 +105,4 @@ const ImageInput: React.FC<ImageInputProps> = ({
   );
 };
 
-export default ImageInput;
+export default AvatarInput;

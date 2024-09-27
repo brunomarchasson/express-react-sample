@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   // These props make styling component easier than creating new classes
   rotate?: number;
-  size?: number;
+  size?: number | string;
 }
 
 /**

@@ -12,17 +12,20 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'varchar', nullable: true })
   name: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   email: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   password: string;
 
   @Column({ type: 'enum', enum: ROLE_ENUM, default: ROLE_ENUM.DEFAULT_USER })
   role: ROLE_ENUM;
+
+  @Column({ type: 'text', nullable: true })
+  avatar: string | null;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

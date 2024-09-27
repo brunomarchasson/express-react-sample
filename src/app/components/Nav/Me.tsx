@@ -1,13 +1,20 @@
-import styles from './nav.module.scss';
 import React from 'react';
-// import LogoutButton from "../LogoutButton";
-import { NavLink } from 'react-router-dom';
-
+import { useAuth } from '../../services/auth/store';
+import Avatar from '../Avatar';
+import Logout from '../Logout';
+import style from './nav.module.scss';
+import { Link } from 'react-router-dom';
 function Me() {
+  const user = useAuth((s) => s.user);
+
   return (
-    <NavLink to="/me" className={styles.me}>
-      {/* <LogoutButton /> */}
-    </NavLink>
+    <Link to="/settings/me" className={style['me']}>
+      <Avatar className={style['me--avatar']} data={user?.avatar}></Avatar>
+      <div className={style['me--infos']}>
+        <span className={style['me--name']}>{user?.name}</span>
+        <Logout></Logout>
+      </div>
+    </Link>
   );
 }
 

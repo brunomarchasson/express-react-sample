@@ -13,7 +13,7 @@ import { ProtectedLayout } from './layout/ProtectedLayout';
 import { useAuth } from './services/auth/store';
 import Home from './pages/Home';
 import UiPage from './pages/ui/UiPage.jsx';
-import ChangePassword from './pages/auth/changePassword';
+import ChangePassword from './pages/auth/ChangePassword';
 import MyProfile from './pages/settings/MyProfile';
 import Accounts from './pages/settings/Accounts';
 import Account from './pages/settings/Account';

@@ -1,15 +1,44 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { CreateUserSchemaType, GetUsersSchemaType } from './user.schema';
-import { createUser, deleteUser, getUsers } from './user.services';
+import {
+  createUser,
+  deleteUser,
+  getUserById,
+  getUsers,
+  updateUser,
+} from './user.services';
 import { JWTPayload } from '../auth/auth.utils';
-import { successResponse } from '../../services/open-api/api.utils';
+import {
+  errorResponse,
+  successResponse,
+} from '../../services/open-api/api.utils';
 import { ROLE_ENUM } from '../auth/enums';
+import { userInSchema } from './user.dto';
 
 export const handleDeleteUser = async (req: Request, res: Response) => {
   await deleteUser(req.params.id);
 
   return successResponse(res, 'User has been deleted');
+};
+
+export const handleGetCurrentUser = async (req: Request, res: Response) => {
+  const user = await getUserById(
+    (req?.context?.currentUser as JWTPayload).userId,
+  );
+  if (!user) return errorResponse(res);
+  return successResponse(res, undefined, user);
+};
+
+export const handleUpdateCurrentUser = async (req: Request, res: Response) => {
+  const data = await userInSchema.omit({ role: true }).parseAsync(req.body);
+  console.log('ddd', data, req.body);
+  const user = await updateUser(
+    (req?.context?.currentUser as JWTPayload).userId,
+    data,
+  );
+  if (!user) return errorResponse(res);
+  return successResponse(res, undefined, user);
 };
 
 export const handleCreateUser = async (
@@ -42,7 +71,6 @@ export const handleCreateSuperAdmin = async (
     name: 'Super Admin',
     password: password,
     role: ROLE_ENUM.SUPER_ADMIN,
-    phoneNo: '123456789',
   });
 
   return successResponse(
