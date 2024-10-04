@@ -1,5 +1,6 @@
 import z from 'zod';
 import { ROLE_ENUM } from '../auth/enums';
+import { USER_STATUS } from '../user/enums';
 import { definePaginatedResponse } from '../common/common.utils';
 
 // export const SocialAccountTypeZ = z.enum(
@@ -7,6 +8,7 @@ import { definePaginatedResponse } from '../common/common.utils';
 // );
 
 export const RoleTypeZ = z.nativeEnum(ROLE_ENUM);
+export const StatusTypeZ = z.nativeEnum(USER_STATUS);
 
 // export const socialAccountInfoSchema = z.object({
 //   accountType: SocialAccountTypeZ,
@@ -17,11 +19,12 @@ export const RoleTypeZ = z.nativeEnum(ROLE_ENUM);
 // });
 
 export const userOutSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   email: z.string().email(),
   avatar: z.string().url().optional().nullable(),
   name: z.string(),
   role: RoleTypeZ,
+  status: StatusTypeZ,
   updatedAt: z.date().optional(),
   createdAt: z.date().optional(),
 });

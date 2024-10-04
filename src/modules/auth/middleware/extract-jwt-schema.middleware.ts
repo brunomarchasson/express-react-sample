@@ -9,8 +9,8 @@ export const extractJwt = async (
 ) => {
   try {
     const token =
-      req.cookies?.[AUTH_COOKIE_KEY] ??
-      req.headers['authorization']?.split(' ')[1];
+      req.headers['authorization']?.split(' ')[1] ??
+      req.cookies?.[AUTH_COOKIE_KEY];
     if (!token) {
       return next();
     }

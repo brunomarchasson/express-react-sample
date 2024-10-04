@@ -2,9 +2,9 @@
 // @import './mixins.scss';
 
 .dialog {
-  --dialog-width: #{unit(70)};
+  // --dialog-width: #{unit(70)};
   --dialog-padding: #{unit(8)};
-  --dialog-bg: white;
+  // --dialog-bg: white;
   --dialog-radius: 15px;
 
   @include hv-center($position: fixed);

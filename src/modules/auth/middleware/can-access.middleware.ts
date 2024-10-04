@@ -25,7 +25,6 @@ export const canAccess =
         );
       }
       const currentUser = await getUserById(requestUser.userId);
-
       if (!currentUser) {
         return errorResponse(res, 'Login again', StatusCodes.UNAUTHORIZED);
       }

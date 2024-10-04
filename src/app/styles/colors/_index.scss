@@ -1,0 +1,68 @@
+$chroma-lightness-map: (
+  '100': (
+    0.02,
+    97,
+  ),
+  '200': (
+    0.05,
+    89,
+  ),
+  '300': (
+    0.12,
+    80,
+  ),
+  '400': (
+    0.19,
+    71,
+  ),
+  '500': (
+    0.27,
+    60,
+  ),
+  '600': (
+    0.19,
+    49,
+  ),
+  '700': (
+    0.12,
+    38,
+  ),
+  '800': (
+    0.05,
+    25,
+  ),
+  '900': (
+    0.02,
+    12,
+  ),
+);
+
+$hue-map: (
+  'primary': var(--primary-hue, 235.68),
+  'secondary': var(--secondary-hue, 20),
+  'neutral': 0,
+  'info': 244,
+  'success': 150,
+  'warning': 80,
+  'error': 20,
+);
+
+@mixin colors() {
+}
+
+:root {
+  @each $color, $h in $hue-map {
+    @each $name, $val in $chroma-lightness-map {
+      $c: nth($val, 1);
+      @debug $color;
+
+      @if ($color == 'neutral') {
+        $c: 0;
+      }
+
+      $l: nth($val, 2);
+
+      --#{$color}-#{$name}: oklch(#{$l}% #{$c} #{$h});
+    }
+  }
+}

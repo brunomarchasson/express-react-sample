@@ -11,7 +11,7 @@ export const Toasts = () => {
   return (
     <ul className={style.toastsList}>
       {toasts.map((t) => (
-        <ToastComponent toast={t} />
+        <ToastComponent key={t.id} toast={t} />
       ))}
     </ul>
   );

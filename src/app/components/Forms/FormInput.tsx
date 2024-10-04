@@ -20,7 +20,7 @@ export const FormInput = ({
   return (
     <div className="form-input-material">
       <input
-        id="email"
+        id={name}
         readOnly={readOnly}
         className={clsx('form-control-material', {
           invalid: !!d.errors[name],
@@ -29,7 +29,7 @@ export const FormInput = ({
         {...props}
         {...field}
       />
-      <label htmlFor="email" data-tooltip={d.errors[name]?.message}>
+      <label htmlFor={name} data-tooltip={d.errors[name]?.message}>
         {label}
       </label>
     </div>

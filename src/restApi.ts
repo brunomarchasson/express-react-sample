@@ -25,8 +25,8 @@ app.use(cors());
 // app.use(httpLogger);
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true }));
-app.use(errorHandler);
 app.use('/api', extractJwt, apiRouter);
+app.use(errorHandler);
 
 const swaggerDocument = getOpenApiDocumentation();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

@@ -24,7 +24,11 @@ import { AUTH_COOKIE_KEY, COOKIE_CONFIG } from './auth.constants';
 import { getUserById } from '../user/user.services';
 import logger from '../../services/Log/logger.service';
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 export const handleGetCurrentUser = async (req: Request, res: Response) => {
+  await sleep(5000);
   const user = await getUserById(
     (req?.context?.currentUser as JWTPayload).userId,
   );
@@ -88,6 +92,7 @@ export const handleLoginByEmail = async (
     res.cookie(AUTH_COOKIE_KEY, token, COOKIE_CONFIG);
     return successResponse(res, 'Login successful', { token: token, user });
   } catch (e) {
+    console.log('rff');
     logger.error(e);
     res.status(401).end();
   }

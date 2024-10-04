@@ -11,6 +11,9 @@ export const baseCreateUser = z.object({
 
 export const createUserSchema = z
   .object({
+    email: z
+      .string({ required_error: 'Email is required' })
+      .email({ message: 'Email is not valid' }),
     name: z.string({ required_error: 'First name is required' }).min(1),
   })
   .merge(baseCreateUser);

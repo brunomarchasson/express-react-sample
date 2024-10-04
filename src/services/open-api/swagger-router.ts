@@ -51,6 +51,17 @@ export type SwaggerRouterRoutePType = [
   ...handlers: SwaggerRouterMiddleware[],
 ];
 
+const asyncHandler =
+  (fn: SwaggerRouterMiddleware) =>
+  async (req: RequestAny, res: ResponseAny, next?: NextFunction) => {
+    console.log(fn);
+    const r = await Promise.resolve(fn(req, res, next)).catch((e) => {
+      console.error(e);
+      console.log('rr');
+      next?.(e);
+    });
+    return r;
+  };
 export class SwaggerRouterRouter {
   private router: Router;
   private rootRoute: string;
@@ -181,7 +192,7 @@ export class SwaggerRouterRouter {
       ...middlewares,
       validateInput(validations),
       validateOutput({ validation: validations?.response }),
-      controller,
+      asyncHandler(controller),
     );
   }
 

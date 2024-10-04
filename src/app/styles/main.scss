@@ -1,5 +1,6 @@
 @use 'reset';
 @use 'aqua/aqua';
+// @use 'colors';
 @use 'theme';
 @use 'annimations';
 
@@ -7,24 +8,23 @@ body {
   // background: #eceffc;
   scroll-behavior: smooth;
   // color-scheme: light;
-  min-height: 100vh;
-  min-height: 100dvh;
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
 }
 #root {
   max-width: 1280px;
   position: relative;
-  margin: 0 auto;
+  margin: auto;
   text-align: center;
-  overflow: hidden;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  // overflow: hidden;
 }
 
 .app {
-  width: 100vw;
-  max-width: 1280px;
+  // width: 100vw;
+  // max-width: 1280px;
   position: relative;
 }
 .card-3d-wrap {

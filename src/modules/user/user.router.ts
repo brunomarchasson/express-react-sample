@@ -3,13 +3,12 @@ import { ROLE_ENUM } from '../auth/enums';
 import { canAccess } from '../auth/middleware/can-access.middleware';
 import {
   handleCreateSuperAdmin,
-  handleCreateUser,
   handleGetCurrentUser,
   handleGetUsers,
   handleUpdateCurrentUser,
 } from './user.controller';
 import { userInSchema, userOutSchema, usersPaginatedSchema } from './user.dto';
-import { createUserSchema, getUsersSchema } from './user.schema';
+import { getUsersSchema } from './user.schema';
 
 export const USER_ROUTER_ROOT = '/users';
 
@@ -21,7 +20,7 @@ userRouter.get(
     query: getUsersSchema,
     response: usersPaginatedSchema,
   },
-  canAccess(),
+  canAccess('roles', [ROLE_ENUM.ADMIN]),
   handleGetUsers,
 );
 
@@ -31,6 +30,7 @@ userRouter.get(
   canAccess(),
   handleGetCurrentUser,
 );
+
 userRouter.put(
   '/me',
   {
@@ -41,12 +41,12 @@ userRouter.put(
   handleUpdateCurrentUser,
 );
 
-userRouter.post(
-  '/user',
-  { body: createUserSchema },
-  canAccess('roles', [ROLE_ENUM.SUPER_ADMIN]),
-  handleCreateUser,
-);
+// userRouter.post(
+//   '/',
+//   { body: userInSchema },
+//   canAccess('roles', [ROLE_ENUM.ADMIN]),
+//   handleCreateUser,
+// );
 
 userRouter.post('/_super-admin', {}, handleCreateSuperAdmin);
 

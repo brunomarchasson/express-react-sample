@@ -25,6 +25,7 @@ import {
   signToken,
 } from './auth.utils';
 import { ROLE_ENUM } from './enums';
+import { USER_STATUS } from '../user/enums';
 
 export const resetPassword = async (
   userId: string,
@@ -102,7 +103,7 @@ export const registerUserByEmail = async (
   }
 
   const user = await createUser(
-    { ...payload, role: ROLE_ENUM.DEFAULT_USER },
+    { ...payload, role: ROLE_ENUM.DEFAULT_USER, status: USER_STATUS.ACTIVE },
     false,
   );
 

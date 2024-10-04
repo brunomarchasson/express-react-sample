@@ -1,6 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import StateButton, { ButtonState } from './StateButton';
-import { useIsMounted } from '../../hooks/useIsMounted';
 
 function useClickAway(cb: (e: MouseEvent | TouchEvent) => void) {
   const ref = useRef<HTMLButtonElement>(null);
@@ -42,7 +41,6 @@ export function FeedbackButton({
   ...props
 }: FeedbackButtonProps) {
   const [state, setState] = useState<ButtonState>(null);
-  const isMounted = useIsMounted();
 
   const elRef = useClickAway(() => {
     if (state !== 'wip') setState(null);
@@ -57,7 +55,7 @@ export function FeedbackButton({
           .catch(() => setState('error'))
           .finally(() =>
             setTimeout(() => {
-              if (isMounted()) setState(null);
+              // if (isMounted()) setState(null);
             }, 3000),
           );
       } else {
@@ -68,6 +66,7 @@ export function FeedbackButton({
     if (needConfirm) setState('confirm');
   };
 
+  console.log(state);
   return (
     <StateButton
       {...props}

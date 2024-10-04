@@ -38,27 +38,34 @@ $ring-inset: 'var(--ring-inset, /*!*/ /*!*/)';
 }
 
 #{$root-name} {
-  --primary-color: hsl(196, 78%, 61%);
-  --secondary-color: hsl(217, 15%, 83%);
-  --success-color: hsl(165, 58%, 55%);
-  --error-color: hsl(354, 81%, 63%);
-  --info-color: hsl(214, 79%, 65%);
-  --warning-color: hsl(43, 100%, 66%);
-  --danger-color: hsl(354, 81%, 63%);
-  --primary-color-darker: hsl(196, 68%, 54%);
-  --secondary-color-darker: hsl(215, 13%, 70%);
-  --success-color-darker: hsl(165, 55%, 48%);
-  --info-color-darker: hsl(214, 68%, 58%);
-  --warning-color-darker: hsl(39, 97%, 62%);
-  --danger-color-darker: hsl(354, 67%, 56%);
   --primary-color-lighter: hsl(196, 78%, 81%);
-  --secondary-color-lighter: hsl(214, 16%, 92%);
-  --success-color-lighter: hsl(165, 58%, 75%);
-  --info-color-lighter: hsl(214, 79%, 85%);
-  --warning-color-lighter: hsl(43, 100%, 86%);
-  --danger-color-lighter: hsl(354, 81%, 83%);
-  --secondary-color-darkest: hsl(215, 11%, 30%);
+  --primary-color: var(--primary-500);
+  --primary-color-darker: hsl(196, 68%, 54%);
+
   --secondary-color-lightest: hsl(220, 1%, 98%);
+  --secondary-color-lighter: hsl(214, 16%, 92%);
+  --secondary-color: hsl(217, 15%, 83%);
+  --secondary-color-darker: hsl(215, 13%, 70%);
+  --secondary-color-darkest: hsl(215, 11%, 30%);
+
+  --success-color-lighter: hsl(165, 58%, 75%);
+  --success-color: hsl(165, 58%, 55%);
+  --success-color-darker: hsl(165, 55%, 48%);
+
+  --error-color: hsl(354, 81%, 63%);
+
+  --info-color-lighter: hsl(214, 79%, 85%);
+  --info-color: hsl(214, 79%, 65%);
+  --info-color-darker: hsl(214, 68%, 58%);
+
+  --warning-color-lighter: hsl(43, 100%, 86%);
+  --warning-color: hsl(43, 100%, 66%);
+  --warning-color-darker: hsl(39, 97%, 62%);
+
+  --danger-color-lighter: hsl(354, 81%, 83%);
+  --danger-color: hsl(354, 81%, 63%);
+  --danger-color-darker: hsl(354, 67%, 56%);
+
   --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
   --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
   --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);

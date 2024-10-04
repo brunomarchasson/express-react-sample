@@ -11,6 +11,7 @@ import { useToast } from '../../services/toast/store';
 import { api } from '../../services/api';
 import { useAuth } from '../../services/auth/store';
 import { GlobalLoader } from '../../services/global-loader/Loader';
+import { useLoaderData } from 'react-router-dom';
 
 // type Inputs = UserDTO;
 
@@ -20,8 +21,10 @@ function MyProfile(): ReactElement {
   const [state] = useData<UserDTO>('auth/me');
   const toaster = useToast((s) => s.toaster);
   const setUserData = useAuth((s) => s.setData);
-
+  const albums = useLoaderData();
   const { isLoading, isError } = state;
+  console.log('loader', albums);
+  console.log('fetched', isLoading, isError, state?.data);
 
   const onSubmit: SubmitHandler<userInType> = async (data) => {
     console.log('data', data);

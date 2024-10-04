@@ -8,8 +8,11 @@ import {
   ImageUp,
   LogIn,
   LogOut,
+  SquareX,
+  SquareXIcon,
   Trash,
   UserRoundPen,
+  Mail,
   UserRoundPlus,
   UsersRound,
 } from 'lucide-react';
@@ -23,11 +26,14 @@ export const icons = {
   CircleCheckBig,
   CircleCheck,
   UserRoundPen,
+  Mail,
   LogIn,
   LogOut,
   UserRoundPlus,
   UsersRound,
   CircleUserRound,
+  SquareX,
+  SquareXIcon,
 };
 
 // import { lazy as _lazy } from "react";

@@ -17,6 +17,8 @@ import ChangePassword from './pages/auth/ChangePassword';
 import MyProfile from './pages/settings/MyProfile';
 import Accounts from './pages/settings/Accounts';
 import Account from './pages/settings/Account';
+import Invite from './pages/settings/Invite';
+import Join from './pages/auth/Join';
 
 const initAuthPromise = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -42,14 +44,42 @@ export const router = createBrowserRouter(
         <Route path="/login" element={<AuthPage />} />
         <Route path="/register" element={<AuthPage register />} />
         <Route path="/reset-password" element={<ChangePassword />} />
+        <Route path="/join" element={<Join />} />
       </Route>
-      <Route path="/" element={<ProtectedLayout />}>
+      <Route
+        path="/"
+        element={<ProtectedLayout />}
+        handle={{ crumb: () => 'Home' }}
+      >
         <Route path="/" element={<Home />} />
-        <Route path="/settings" element={<Home />}>
+        <Route
+          path="/settings"
+          element={<Home />}
+          handle={{ crumb: () => 'Settings' }}
+        >
           <Route index element={<Navigate to="me" />} />
-          <Route path="me" element={<MyProfile />} />
-          <Route path="accounts" element={<Accounts />}>
-            <Route path=":accountId" element={<Account />}></Route>
+          <Route
+            path="me"
+            element={<MyProfile />}
+            handle={{ crumb: () => 'Me' }}
+            // loader={async ()=> api.get('auth/me').json<UserDTO>()}
+          />
+          <Route
+            path="accounts"
+            handle={{ crumb: () => 'Accounts' }}
+            element={<Accounts />}
+          >
+            {/* <Route  index element={<Accounts />}></Route> */}
+            <Route
+              path="invite"
+              element={<Invite />}
+              handle={{ crumb: () => 'Invite' }}
+            ></Route>
+            <Route
+              path=":accountId"
+              element={<Account />}
+              handle={{ crumb: () => 'Home' }}
+            ></Route>
           </Route>
         </Route>
       </Route>

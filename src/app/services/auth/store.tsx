@@ -33,8 +33,8 @@ export const useAuth = create<useAuthStore>((set) => ({
       set({ user: r.user, token: r.token });
     } catch (error: unknown) {
       // Handle authentication errors
-      console.error(error);
-      set({ user: null }); // <-- auth failed, set null
+      set({ user: null });
+      throw error;
     }
   },
   forgot: async (email: string) => {

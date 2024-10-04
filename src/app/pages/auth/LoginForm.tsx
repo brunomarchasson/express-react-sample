@@ -40,7 +40,12 @@ export default function LoginForm() {
         console.error(e);
       }
     }
-    login(data.email, data.password);
+    try {
+      await login(data.email, data.password);
+    } catch (e) {
+      toaster.error('error');
+      console.error(e);
+    }
   };
   return (
     <>

@@ -50,6 +50,7 @@ const StateButton = React.forwardRef<HTMLButtonElement, Props>(
     };
 
     const getIcon = () => {
+      console.log('sd', state);
       if (state === 'wip')
         return loadingProps.children ?? <LoadingIcon size={'1em'} />;
       if (state === 'error')

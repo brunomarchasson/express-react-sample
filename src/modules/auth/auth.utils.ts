@@ -20,6 +20,10 @@ export type JWTPayload = {
   userId: string;
   email: string;
 };
+export type InvitationTokenPayload = {
+  userId: string;
+  email: string;
+};
 
 export type PasswordResetTokenPayload = {
   userId: string;
@@ -58,6 +62,12 @@ export const signPasswordResetToken = async (
   payload: PasswordResetTokenPayload,
 ) => {
   return signToken(payload);
+};
+
+export const signInvitationToken = async (payload: InvitationTokenPayload) => {
+  return signToken(payload, {
+    expiresIn: '7d',
+  });
 };
 
 export const signSetPasswordToken = async (

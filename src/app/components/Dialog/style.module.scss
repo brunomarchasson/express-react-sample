@@ -1,0 +1,120 @@
+.dialog {
+  --anim-duration: 0.7s;
+  padding: 0;
+  position: fixed;
+  z-index: 1001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  width: 80ch;
+
+  box-shadow:
+    0 0.4px 0.4px rgba(128, 128, 128, 0.109),
+    0 1px 1px rgba(128, 128, 128, 0.155),
+    0 2.1px 2.1px rgba(128, 128, 128, 0.195),
+    0 4.4px 4.4px rgba(128, 128, 128, 0.241),
+    0 12px 12px rgba(128, 128, 128, 0.35);
+
+  &:global {
+    animation: dialog-bounce-in 0.6s forwards;
+  }
+}
+
+.title {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 2rem 1fr 2rem;
+  gap: 1rem;
+
+  & h1 {
+    margin: 0;
+  }
+}
+
+.content {
+  padding: 0px 40px 50px 40px;
+}
+
+// .dialog[open] {
+//     // animation: var(--animation-slide-in-up) forwards;
+//     opacity: 1;
+// }
+
+// .dialog:not([open]) {
+//     pointer-events: none;
+//     opacity: 0;
+// }
+
+.dialog[open] {
+  opacity: 1;
+  pointer-events: auto;
+  animation: slidein var(--anim-duration) forwards;
+}
+
+.closing[open] {
+  animation: slideout var(--anim-duration) forwards;
+}
+
+.dialog::backdrop {
+  animation: fadein var(--anim-duration) forwards;
+  backdrop-filter: blur(0.25rem) opacity(1);
+}
+
+.closing::backdrop {
+  animation: fadeout var(--anim-duration) forwards;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0) opacity(0);
+  }
+
+  to {
+    opacity: 1;
+    backdrop-filter: blur(0.25rem) opacity(1);
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(0.25rem) opacity(1);
+  }
+
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0) opacity(0);
+  }
+}
+
+@keyframes slidein {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideout {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}

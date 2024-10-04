@@ -1,16 +1,9 @@
-// import { FilterQuery } from 'mongoose';
-// import { hashPassword } from '../../utils/auth.utils';
-// import { getPaginator } from '../../utils/getPaginator';
-// import { UserModelType, UserType } from './user.dto';
-// import User, { IUserDocument } from './user.model';
-// import { GetUsersSchemaType } from './user.schema';
-// import { MongoIdSchemaType } from '../../common/common.schema';
-
 import { AppDataSource } from '../../data-source';
 import { User } from '../../entity/User.entity';
 import { hashPassword } from '../auth/auth.utils';
+import { apiError } from '../../comon/error';
 import { UserModelType } from './user.dto';
-// import { GetUsersSchemaType } from './user.schema';
+import { randomBytes } from 'crypto';
 
 export const updateUser = async (
   userId: string,
@@ -29,7 +22,6 @@ export const getUserById = async (userId: string): Promise<User | null> => {
   const user = await repository.findOne({
     where: { id: userId },
   });
-  console.log('getUserById=>', user);
   return user;
 };
 
@@ -60,7 +52,8 @@ export const getUsers = async (
   if (!currentUser) {
     throw new Error('User must be logged in');
   }
-  const results = await repository.findAndCount();
+  const [results, totalRecords] = await repository.findAndCount();
+  console.log('resulkts', results);
   //   skip
   // take
 
@@ -92,34 +85,39 @@ export const getUsers = async (
 
   return {
     results,
-    paginatorInfo: {},
+    paginatorInfo: {
+      skip: 0,
+      limit: 10,
+      currentPage: 1,
+      pages: 0,
+      hasNextPage: true,
+      totalRecords,
+      pageSize: 10,
+    },
   };
 };
 
 export const createUser = async (
-  payload: UserModelType,
+  payload: Partial<Omit<UserModelType, 'id'>>,
   checkExist: boolean = true,
 ): Promise<User> => {
   const repository = AppDataSource.getRepository(User);
 
   if (checkExist) {
     const isUserExist = await repository.findOneBy({ email: payload.email });
-
-    if (!isUserExist) {
-      throw new Error('User already exists');
+    if (isUserExist) {
+      throw apiError(409, 'User already exists');
     }
   }
 
-  if (!payload.password) {
-    throw new Error('Password is required');
-  }
+  const password = randomBytes(30).toString('hex');
+  const hashedPassword = await hashPassword(password);
 
-  const hashedPassword = await hashPassword(payload.password);
-
-  const createdUser = await repository.create({
+  const createdUser = await repository.save({
     ...payload,
     password: hashedPassword,
   });
 
-  return { ...createdUser, password: '' };
+  createdUser.password = '';
+  return createdUser; //{ ...createdUser, password: '' };
 };

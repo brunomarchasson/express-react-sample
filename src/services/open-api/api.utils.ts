@@ -70,6 +70,9 @@ export const successResponse = (
 export const generateResetPasswordLink = (token: string) => {
   return `${env.APP_URL}/reset-password?token=${token}`;
 };
+export const generateInvitationLink = (token: string) => {
+  return `${env.APP_URL}/join?token=${token}`;
+};
 
 export const generateSetPasswordLink = (token: string) => {
   return `${env.APP_URL}/set-password?token=${token}`;

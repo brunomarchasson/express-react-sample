@@ -33,9 +33,11 @@ export const Form = <T extends FieldValues = FieldValues>({
   });
 
   const s = async (e: React.BaseSyntheticEvent) => {
+    console.log(e);
     await methods.handleSubmit(onSubmit)(e);
     methods.reset(undefined, { keepValues: true });
   };
+
   return (
     <FormProvider {...methods}>
       <form className={clsx(style.form, className)} onSubmit={s}>
@@ -69,7 +71,6 @@ Form.SubmitButton = ({
   useEffect(() => {
     if (state === 'success') {
       const timeOutId = setTimeout(() => {
-        console.log('rr', state);
         if (isMounted()) setState(null);
       }, 3000);
       return () => {

@@ -5,8 +5,10 @@ import './styles/global.scss';
 import Toasts from './services/toast/Toasts';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-    <Toasts />
-  </StrictMode>,
+  <>
+    <StrictMode>
+      <App />
+      <Toasts />
+    </StrictMode>
+  </>,
 );

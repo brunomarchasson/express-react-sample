@@ -6,6 +6,10 @@
   --table-td-align: left;
 
   border-collapse: collapse;
+  @media (prefers-color-scheme: dark) {
+    --table-thead-color: var(--secondary-color-lightest);
+    --table-thead-bg: var(--secondary-color-darkest);
+  }
 
   thead {
     color: var(--table-thead-color);

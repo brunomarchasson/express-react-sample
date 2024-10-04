@@ -7,9 +7,9 @@ export const defineSuccessResponse = (schema: ZodRawShape) => {
 
 export const definePaginatedResponse = (schema: ZodSchema) => {
   return defineSuccessResponse({
-    data: z.object({
-      results: z.array(schema),
-      paginatorInfo: paginatorSchema,
-    }),
+    // data: z.object({
+    results: z.array(schema),
+    paginatorInfo: paginatorSchema,
+    // }),
   });
 };
